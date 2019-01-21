@@ -6,10 +6,11 @@ import AddComment from './AddComment';
 
 
 const Comments = (props) => {
-    const { comments } = props.comments;
-    const { articleid } = props
+    const { comments } = props;
+    console.log(comments)
+    const { articleid, getComment } = props
     return <div>
-        <AddComment articleid={articleid} />
+        <AddComment articleid={articleid} getComment={getComment} />
         <ul>
           {comments.map(comment => <li key={comment.comment_id}>
               <p>{comment.body}</p>

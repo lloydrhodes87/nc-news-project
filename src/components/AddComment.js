@@ -8,14 +8,14 @@ class AddComment extends Component {
   };
   
   render() {
-  
+    
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="username">Username</label>
-          <input type="text" id="username" onChange={this.handleChange}/>
+          <input type="text" id="username" onChange={this.handleChange} value={this.state.username}/>
           <label htmlFor="body">Comment</label>
-                <input type="text" id="body" onChange={this.handleChange}/>
+                <input type="text" id="body" onChange={this.handleChange} value={this.state.body}/>
           <button type="submit">Add Comment</button>
         </form>
       </div>
@@ -27,6 +27,7 @@ class AddComment extends Component {
       [id]: event.target.value
     });
   };
+ 
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -48,10 +49,11 @@ class AddComment extends Component {
       body: JSON.stringify({
         body: this.state.body,
         username: this.state.username
-      }, () => {
-        console.log(this.state)
       })
-    });
+    }).then(res => res.json())
+    .then(({comment}) => {
+      this.props.getComment(comment)
+    })
 
 
   }

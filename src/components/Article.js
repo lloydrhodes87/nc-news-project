@@ -32,7 +32,12 @@ class Article extends Component {
             <button onClick={this.handleToggleComments} type="submit">
               comments
             </button>
-            {this.state.toggleComments && <Comments comments={this.state.comments} articleid={articleid}/>}
+            {this.state.toggleComments && 
+                <Comments 
+                    comments={this.state.comments} 
+                    getComment={this.getComment} 
+                    articleid={articleid}
+                />}
           </div>;
     }
   
@@ -40,7 +45,14 @@ class Article extends Component {
        this.handleFetchArticle();  
        this.handleFetchComments();
     }
-    
+   
+    getComment = (comment) => {
+        console.log(comment)
+        this.setState((prevState) => {
+            return { comments: [...prevState.comments, comment] };       
+        })
+        
+    }
     
     handleToggleComments = () => {
         this.setState((prevState) => ({

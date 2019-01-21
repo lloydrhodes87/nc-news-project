@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Navbar from './components/Navbar';
 import { Router } from '@reach/router'
 import AllArticles from './components/AllArticles';
-import Article from './components/Arcticle';
+import Article from './components/Article';
 import Topics from './components/Topics';
 import Users from './components/Users';
 import Home from './components/Home';
