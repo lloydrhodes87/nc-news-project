@@ -1,0 +1,95 @@
+.App {
+  text-align: center;
+  background-color: #def2f1;
+  /* background-image: url('https://images.pexels.com/photos/443383/pexels-photo-443383.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); */
+  background-position: sticky;
+  background-repeat: no-repeat;
+
+  
+}
+
+html {
+  font-size: 62.5%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.sign-in {
+  text-align: right;
+  padding: 2rem;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.sign-in > input {
+  margin: 2px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.header {
+  font-size: 3rem;
+  font-weight: 100;
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  background-color: #29638aa2;
+  color: #f2f2f2;
+  border: 1px solid #182628;
+}
+
+.header > h1 {
+  margin: 2rem;
+  padding: 2rem;
+
+} 
+
+
+.navbar {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1rem 3rem;
+}
+.navbar > a {
+  color: #424242;
+  text-decoration: none;
+  font-size: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.articleList {
+
+  width: 60rem;
+  margin: 4rem auto;
+}
+
+.articleList > li {
+  margin-bottom: 2rem;
+  background-color: #29333552;
+  border-radius: 10px;
+  padding: 3rem;
+  color: #f2f2f2;
+  list-style: none;
+  font-size: 1.5rem;
+  box-shadow: inset 0px -4px 249px 0px rgba(66, 66, 66, 0.226);
+}
+
+.buttonViewArticles {
+  background-color: #1826289f;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 1rem;
+}
+
+.buttonViewArticles > a {
+  color: white;
+}
+
