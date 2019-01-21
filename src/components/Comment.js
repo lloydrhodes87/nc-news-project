@@ -1,35 +1,61 @@
 import React, { Component } from 'react';
+import * as api from '../Utils/fetchData';
 import axios from 'axios';
 
 class Comment extends Component {
     state = {
-        votes: this.props.votes,
+        inc_votes: this.props.votes,
         articleid: this.props.articleid,
         commentid: this.props.commentid
     }
     render() {
-        const { votes } = this.state
+        const { inc_votes } = this.state
         return (
             <div>
-                <p>votes: {votes}</p>
-                <button type="submit" onClick={this.handleIncrementVote}>Vote Up</button>
-                <button type="submit" onClick={this.handleDecrementVote}>Vote Down</button>
+                <p>Votes: {inc_votes}</p>
+                <button type="submit" onClick={() => this.handleChange('increment')}>Vote Up</button>
+                <button type="submit" onClick={() => this.handleChange('decrement')}>Vote Down</button>
                 <button type="submit" onClick={this.handleDeleteComment}>Delete</button>
             </div>
         );
     }
-    handleIncrementVote = () => {
-        this.setState((prevState) => ({
-            votes: prevState.votes + 1
-        }))
+
+    // votes increment at massive rate 
+
+    
+    componentDidUpdate = (prevProps, prevState) => {
+        if (prevState.inc_votes === this.state.inc_votes - 1) {
+            this.handleChange();
+        }
+            
+        
     }
-    handleDecrementVote = () => {
-        this.setState(prevState => ({ votes: prevState.votes - 1 }));
+
+    handleChange = (value) => {
+        console.log(value)
+        this.handleUpdateVote(value);
+
     }
+    
+    // handleUpdateVote = (id) => {
+    //     const { commentid, articleid } = this.state;
+    //     const vote = {
+    //         inc_votes: this.state.inc_votes
+    //     }
+    //     axios.patch(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`, vote)
+    //     .then(res => {
+    //         this.setState((prevState) => ({
+    //             inc_votes: id === 'increment' ? prevState.inc_votes + 1 : prevState.inc_votes - 1
+    //         }))
+    //     }).catch(err => console.log(err))        
+    // }
+
+
+
     handleDeleteComment = () => {
         const { deleteComment } = this.props; 
         const { commentid, articleid } = this.state;
-        axios.delete(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`)
+        api.deleteData(commentid, articleid)
         .then(res => {
             deleteComment(commentid);
         })

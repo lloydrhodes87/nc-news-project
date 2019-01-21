@@ -18,3 +18,18 @@ export const fetchComments = async (id) => {
     return data.comments;
 }
 
+export const deleteData = async (commentid, articleid) => {
+    const { data } = await axios.delete(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`);
+    return data;
+}
+
+export const fetchTopics = async () => {
+    const { data } = await axios.get(`${BASE_URL}/topics`);
+    return data.topics;
+}
+
+// export const changeVote = async (articleid, commentid, vote) => {
+//     console.log(vote)
+//     const { data } = await axios.patch(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`, vote);
+//     return data;
+// }

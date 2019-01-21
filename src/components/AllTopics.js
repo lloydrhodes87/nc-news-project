@@ -1,27 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from '@reach/router';
+import * as api from '../Utils/fetchData';
+import Loader from './Loader';
 
 
-const AllTopics = () => {
-    return <div>
-        <ul>
-          <li>
-            <Link to="/topic/articles">All Topic links to articles by topic</Link>
-          </li>
-            <li>
-                <Link to="/topic/articles">All topics</Link>
-            </li>
-            <li>
-                <Link to="/topic/articles">All topics</Link>
-            </li>
-            <li>
-                <Link to="/topic/articles">All topics</Link>
-            </li>
-            <li>
-                <Link to="/topic/articles">All topics</Link>
-            </li>
-        </ul>
-      </div>;
-};
+class AllTopics extends Component {
+    state = {
+        isLoading: true,
+        topics: []
+    }
+    render() {
+        const { isLoading } = this.state;
+        const { topics } = this.state;
+        if (isLoading) return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
+        return (
+             <div>
+            <ul>
+                {topics.map(({slug, description}) => {
+                    return <li key={slug}>
+                        <p>Topic: {slug} </p>
+                        <p>{description}</p>
+                        <Link to="/topic/:topicid">View Articles</Link>
+                    </li>
+                })}
+                
+            </ul>
+        </div>
+        );
+    }
+    componentDidMount = () => {
+        this.fetchTopics();
+    }
+    fetchTopics = () => {
+        api.fetchTopics()
+            .then(topics => {
+                this.setState({
+                    topics,
+                    isLoading: false
+                }, () => console.log(this.state))
+            })
+    }
+
+}
 
 export default AllTopics;
