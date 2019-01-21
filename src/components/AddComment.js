@@ -39,6 +39,7 @@ class AddComment extends Component {
     };
 
   addComment = () => {
+    console.log(this.props, 'here')
     const { articleid } = this.state;
     return fetch(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments`, {
       method: 'POST',

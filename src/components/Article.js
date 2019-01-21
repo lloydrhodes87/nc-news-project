@@ -35,7 +35,6 @@ class Article extends Component {
             {this.state.toggleComments && 
                 <Comments 
                     comments={this.state.comments} 
-                    getComment={this.getComment} 
                     articleid={articleid}
                 />}
           </div>;
@@ -43,16 +42,9 @@ class Article extends Component {
   
     componentDidMount() {
        this.handleFetchArticle();  
-       this.handleFetchComments();
     }
    
-    getComment = (comment) => {
-        console.log(comment)
-        this.setState((prevState) => {
-            return { comments: [...prevState.comments, comment] };       
-        })
-        
-    }
+   
     
     handleToggleComments = () => {
         this.setState((prevState) => ({
@@ -70,15 +62,7 @@ class Article extends Component {
             })
         })
     }
-    handleFetchComments = () => {
-        const { articleid } = this.props;
-        api.fetchComments(articleid)
-        .then(comments => {
-            this.setState({
-                comments
-            })
-        })
-    }
+  
 }
 
 export default Article;
