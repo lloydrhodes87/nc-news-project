@@ -4,13 +4,15 @@ import Comment from './Comment';
 import AddComment from './AddComment';
 import * as api from '../Utils/fetchData';
 
+
 class Comments extends Component {
     state = {
         comments: []
     }
     render() {
         const { comments } = this.state;
-        const { articleid } = this.props
+        const { articleid } = this.props;
+
         return (
         
         <div>
@@ -20,7 +22,12 @@ class Comments extends Component {
                     <p>{comment.body}</p>
                     <p>published by: {comment.author}</p>
                     <p>left: {formatDate(comment.created_at)}</p>
-                    <Comment votes={comment.votes} />
+                    <Comment 
+                        votes={comment.votes} 
+                        articleid={articleid}
+                        commentid={comment.comment_id}
+                        deleteComment={this.deleteComment}
+                    />
                 </li>)}
             </ul>
         </div>
@@ -43,6 +50,14 @@ class Comments extends Component {
             return { comments: [comment, ...prevState.comments] };
         })
 
+    }
+    deleteComment = (commentid) => {
+    
+        this.setState((prevState) => ({
+            comments: prevState.comments.filter(({comment_id}) => comment_id !== commentid)
+        }), () => {
+            console.log('state after delete', this.state)
+        })
     }
 }
 

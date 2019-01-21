@@ -17,3 +17,4 @@ export const fetchComments = async (id) => {
     console.log(data);
     return data.comments;
 }
+
