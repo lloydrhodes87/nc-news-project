@@ -13,18 +13,35 @@ class AllArticles extends Component {
     slug: '',
     articles: [],
     isLoading: true,
-
-  }
+    value: '',
+    search: ''
+  };
   render() {
-    
     const { isLoading } = this.state;
-    let { articles } = this.state.articles;
+    let { articles } = this.state;
     const { getArticleId, slug } = this.props;
-
-
-    if (isLoading) return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
+    if (isLoading)
+      return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return <div className="articleList">
-      {filterArticles(articles, slug).map(
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="title">Topic Title</label>
+          <input type="text" id="title" />
+          <button type="submit" onClick={this.handleSort}>
+            Search
+          </button>
+          <select onChange={this.handleChange}>
+            <option />
+            <option value="?sort_by=created_at&sort_ascending=false">
+              date first
+            </option>
+            <option value="?sort_by=created_at&sort_ascending=true">
+              date last
+            </option>
+          <option value="?sort_by=votes&sort_ascending=true">votes</option>
+          <option value="?sort_by=comment_count">most comments</option>
+          </select>
+        </form>
+        {filterArticles(articles, slug).map(
           ({ article_id, title, topic, author, created_at }) => {
             return (
               <li key={article_id}>
@@ -44,20 +61,44 @@ class AllArticles extends Component {
         )}
       </div>;
   }
-  componentDidMount = () => {
-    this.fetchArticles();
-    
-  }
-  fetchArticles = () => {
-    const { slug } = this.props
-    api.fetchAllArticles()
-      .then(articles => {
+
+  componentDidUpdate = (prevState, prevProps) => {
+    const  { value } = this.state;
+    if (prevState.value !== this.state.value) {
+      api.fetchArticlesSort(value)
+      .then((articles) => {
         this.setState({
-          articles,
-          isLoading: false,
-          slug
+          articles
         })
       })
+    }
+  }
+
+  componentDidMount = () => {
+    this.fetchArticles();
+  };
+  fetchArticles = () => {
+    const { slug } = this.props;
+    api.fetchAllArticles().then(articles => {
+      this.setState({
+        articles,
+        isLoading: false,
+        slug
+      });
+    });
+  };
+  handleChange = (event) => {
+    this.props.getSearchValue(event.target.value)
+    this.setState({
+      value: event.target.value
+    })
+  }
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({
+      value: ''
+    })
+    
   }
 }
 

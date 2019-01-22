@@ -24,11 +24,15 @@ class Comment extends Component {
     
     handleUpdateVote = (id) => {
         const { commentid, articleid } = this.state;
+        const reqStr = `https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`;
+        console.log(reqStr);
         const vote = {
-            inc_votes: this.state.inc_votes
+            inc_votes: id === 'increment' ? 1 : -1
         }
-        axios.patch(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`, vote)
+        console.log(vote);
+        axios.patch(reqStr, vote)
         .then(res => {
+            console.log('>>>>', res.data.comment);
             this.setState((prevState) => ({
                 inc_votes: id === 'increment' ? prevState.inc_votes + 1 : prevState.inc_votes - 1
             }),  () => console.log(this.state.inc_votes))

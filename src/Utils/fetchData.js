@@ -4,7 +4,7 @@ const BASE_URL = 'https://lloyd-news.herokuapp.com/api';
 
 export const fetchAllArticles = async() => {
     const { data } = await axios.get(`${BASE_URL}/articles`);
-    return data;
+    return data.articles;
 }
 
 export const fetchArticle = async (id) => {
@@ -26,6 +26,11 @@ export const deleteData = async (commentid, articleid) => {
 export const fetchTopics = async () => {
     const { data } = await axios.get(`${BASE_URL}/topics`);
     return data.topics;
+}
+
+export const fetchArticlesSort = async(query) => {
+    const { data } = await axios.get(`${BASE_URL}/articles${query}`);
+    return data.articles;
 }
 
 // export const changeVote = async (articleid, commentid, vote) => {
