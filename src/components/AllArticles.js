@@ -19,10 +19,11 @@ class AllArticles extends Component {
   render() {
     const { isLoading } = this.state;
     let { articles } = this.state;
-    const { getArticleId, slug } = this.props;
+    const { slug } = this.props;
     if (isLoading)
       return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
-    return <div className="articleList">
+    return (
+      <div className="articleList">
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="title">Topic Title</label>
           <input type="text" id="title" />
@@ -37,8 +38,8 @@ class AllArticles extends Component {
             <option value="?sort_by=created_at&sort_ascending=true">
               date last
             </option>
-          <option value="?sort_by=votes&sort_ascending=true">votes</option>
-          <option value="?sort_by=comment_count">most comments</option>
+            <option value="?sort_by=votes&sort_ascending=true">votes</option>
+            <option value="?sort_by=comment_count">most comments</option>
           </select>
         </form>
         {filterArticles(articles, slug).map(
@@ -49,34 +50,35 @@ class AllArticles extends Component {
                 <p>Topic: {topic}</p>
                 <p>Author: {author}</p>
                 <p>Date: {formatDate(created_at)}</p>
-                <button
+
+                <Link
                   className="buttonViewArticles"
-                  onClick={() => getArticleId(article_id)}
+                  to={`/articles/${article_id}`}
                 >
-                  <Link to={`/articles/${article_id}`}>View Article</Link>
-                </button>
+                  View Article
+                </Link>
               </li>
             );
           }
         )}
-      </div>;
-  }
-
-  componentDidUpdate = (prevState, prevProps) => {
-    const  { value } = this.state;
-    if (prevState.value !== this.state.value) {
-      api.fetchArticlesSort(value)
-      .then((articles) => {
-        this.setState({
-          articles
-        })
-      })
-    }
+      </div>
+    );
   }
 
   componentDidMount = () => {
     this.fetchArticles();
   };
+  componentDidUpdate = (prevState, prevProps) => {
+    const { value } = this.state;
+    if (prevState.value !== this.state.value) {
+      api.fetchArticlesSort(value).then(articles => {
+        this.setState({
+          articles
+        });
+      });
+    }
+  };
+
   fetchArticles = () => {
     const { slug } = this.props;
     api.fetchAllArticles().then(articles => {
@@ -87,19 +89,19 @@ class AllArticles extends Component {
       });
     });
   };
-  handleChange = (event) => {
-    this.props.getSearchValue(event.target.value)
+
+  handleChange = event => {
+    this.props.getSearchValue(event.target.value);
     this.setState({
       value: event.target.value
-    })
-  }
-  handleSubmit = (event) => {
+    });
+  };
+  handleSubmit = event => {
     event.preventDefault();
     this.setState({
       value: ''
-    })
-    
-  }
+    });
+  };
 }
 
 export default AllArticles;

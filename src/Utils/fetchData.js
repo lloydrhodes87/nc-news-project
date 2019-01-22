@@ -33,8 +33,7 @@ export const fetchArticlesSort = async(query) => {
     return data.articles;
 }
 
-// export const changeVote = async (articleid, commentid, vote) => {
-//     console.log(vote)
-//     const { data } = await axios.patch(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`, vote);
-//     return data;
-// }
+export const fetchUser = async(user) => {
+    const { data } = await axios.get(`${BASE_URL}/users/${user}`);
+    return data.user;
+}
