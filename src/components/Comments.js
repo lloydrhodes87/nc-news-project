@@ -11,16 +11,20 @@ class Comments extends Component {
     }
     render() {
         const { comments } = this.state;
-        const { articleid } = this.props;
+        const { articleid, user } = this.props;
 
         return (
         
         <div>
-            <AddComment articleid={articleid} getComment={this.getComment} />
+            <AddComment 
+                articleid={articleid} 
+                getComment={this.getComment} 
+                user={user}
+            />
             <ul>
                 {comments.map(comment => <li key={comment.comment_id}>
                     <p>{comment.body}</p>
-                    <p>published by: {comment.author}</p>
+                    <p>published by: {user.name}</p>
                     <p>left: {formatDate(comment.created_at)}</p>
                     <Comment 
                         votes={comment.votes} 

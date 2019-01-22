@@ -32,7 +32,6 @@ class Comment extends Component {
         console.log(vote);
         axios.patch(reqStr, vote)
         .then(res => {
-            console.log('>>>>', res.data.comment);
             this.setState((prevState) => ({
                 inc_votes: id === 'increment' ? prevState.inc_votes + 1 : prevState.inc_votes - 1
             }),  () => console.log(this.state.inc_votes))

@@ -11,25 +11,31 @@ import Home from './components/Home';
 import User from './components/User';
 import Login from './components/Login';
 import * as api from './Utils/fetchData';
+import Logout from './components/Logout';
 
 
 class App extends Component {
   state = {
     article_id: '',
-    username: ''
+    user: ''
   };
   render() {
     return <div className="App">
         
+      <Logout logout={this.handleLogOut}/>
           <Header />
           <Navbar />
-      <Login login={this.login} user={this.state.username}>
+          
+      <Login login={this.login} user={this.state.user}>
           <Router>
             <Home path="/" />
-            <AllArticles path="/articles" // getArticleId={this.getArticleId}
+            <AllArticles path="/articles" 
              />
 
-            <Article path="/articles/:articleid" />
+            <Article 
+              path="/articles/:articleid" 
+              user={this.state.user}
+            />
 
             <Topics path="/topics" />
             <AllArticles path="/topics/:slug"  />
@@ -39,17 +45,37 @@ class App extends Component {
       </Login>
     </div>;
   }
- 
+  
+  componentDidMount = () => {
+    const stored = sessionStorage.getItem('user');
+    const user = JSON.parse(stored);
+    this.setState({
+      user
+    })
+    
+  }
   
   login = user => {
     console.log(user)
     api.fetchUser(user)
     .then(user => {
+      
       this.setState({
-        username: user.username
-      }
-      )}
+        user
+      })
+        sessionStorage.setItem('user', JSON.stringify(user))
+      
+    }
+      
     )}
+  handleLogOut = () => {
+    sessionStorage.clear();
+    this.setState({
+      user: ''
+    }, () => { 
+      console.log(this.state)
+    })
+  };
 }
 
 export default App;

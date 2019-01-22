@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 
 class AddComment extends Component {
   state = {
-    username: '',
+    username: this.props.user.username,
     body: '',
     articleid: this.props.articleid
   };
   
   render() {
+    const { user } = this.props;
     
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" onChange={this.handleChange} value={this.state.username}/>
+          <p>commenting as:{user.username} </p>
           <label htmlFor="body">Comment</label>
                 <input type="text" id="body" onChange={this.handleChange} value={this.state.body}/>
           <button type="submit">Add Comment</button>
@@ -33,7 +33,6 @@ class AddComment extends Component {
         event.preventDefault();
         this.addComment();
         this.setState({
-            username: '',
             body: ''
         })
     };

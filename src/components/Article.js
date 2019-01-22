@@ -19,7 +19,7 @@ class Article extends Component {
         const { body, title, author, created_at } = this.state.article
         if (isLoading) return <Loader />;
 
-        const {articleid } = this.props;
+        const {articleid, user } = this.props;
        
         return <div>
             <h2>{title}</h2>
@@ -36,6 +36,7 @@ class Article extends Component {
                 <Comments 
                     comments={this.state.comments} 
                     articleid={articleid}
+                    user={user}
                 />}
           </div>;
     }
