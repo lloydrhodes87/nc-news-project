@@ -11,7 +11,7 @@ class Article extends Component {
         toggleComments: false,
         article: [],
         isLoading: true,
-        comments: []
+        
     }
     render() {
         

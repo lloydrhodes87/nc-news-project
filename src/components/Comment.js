@@ -13,42 +13,27 @@ class Comment extends Component {
         return (
             <div>
                 <p>Votes: {inc_votes}</p>
-                <button type="submit" onClick={() => this.handleChange('increment')}>Vote Up</button>
-                <button type="submit" onClick={() => this.handleChange('decrement')}>Vote Down</button>
+                <button type="submit" onClick={() => this.handleUpdateVote('increment')}>Vote Up</button>
+                <button type="submit" onClick={() => this.handleUpdateVote('decrement')}>Vote Down</button>
                 <button type="submit" onClick={this.handleDeleteComment}>Delete</button>
             </div>
         );
     }
 
-    // votes increment at massive rate 
 
     
-    componentDidUpdate = (prevProps, prevState) => {
-        if (prevState.inc_votes === this.state.inc_votes - 1) {
-            this.handleChange();
+    handleUpdateVote = (id) => {
+        const { commentid, articleid } = this.state;
+        const vote = {
+            inc_votes: this.state.inc_votes
         }
-            
-        
+        axios.patch(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`, vote)
+        .then(res => {
+            this.setState((prevState) => ({
+                inc_votes: id === 'increment' ? prevState.inc_votes + 1 : prevState.inc_votes - 1
+            }),  () => console.log(this.state.inc_votes))
+        }).catch(err => console.log(err))        
     }
-
-    handleChange = (value) => {
-        console.log(value)
-        this.handleUpdateVote(value);
-
-    }
-    
-    // handleUpdateVote = (id) => {
-    //     const { commentid, articleid } = this.state;
-    //     const vote = {
-    //         inc_votes: this.state.inc_votes
-    //     }
-    //     axios.patch(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`, vote)
-    //     .then(res => {
-    //         this.setState((prevState) => ({
-    //             inc_votes: id === 'increment' ? prevState.inc_votes + 1 : prevState.inc_votes - 1
-    //         }))
-    //     }).catch(err => console.log(err))        
-    // }
 
 
 

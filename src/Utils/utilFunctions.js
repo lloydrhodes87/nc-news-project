@@ -3,4 +3,7 @@ const formatDate = (date) => {
     return `${array[2]}/${array[1]}/${array[0]}`
 }
 
-export default formatDate
+
+
+export default formatDate;
+

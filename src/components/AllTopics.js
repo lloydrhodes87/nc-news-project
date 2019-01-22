@@ -20,7 +20,7 @@ class AllTopics extends Component {
                     return <li key={slug}>
                         <p>Topic: {slug} </p>
                         <p>{description}</p>
-                        <Link to="/topic/:topicid">View Articles</Link>
+                        <Link to={`/topic/${slug}`}>View Articles</Link>
                     </li>
                 })}
                 

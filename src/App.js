@@ -28,9 +28,10 @@ class App extends Component {
         <AllArticles path="/articles" getArticleId={this.getArticleId} />
       
         <Article path="/articles/:articleid" articleId={this.articleId} />
-        <AllArticlesByTopic path="topic/articles" />
+        
 
         <Topics path="/topics" />
+          <AllArticles path="topic/:slug" getArticleId={this.getArticleId} />
         <Users path="/users" />
         <User path="/users/user" />
       </Router>
