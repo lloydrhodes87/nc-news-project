@@ -16,7 +16,6 @@ import * as api from './Utils/fetchData';
 class App extends Component {
   state = {
     article_id: '',
-    sort_by: '',
     username: ''
   };
   render() {
@@ -28,12 +27,12 @@ class App extends Component {
           <Router>
             <Home path="/" />
             <AllArticles path="/articles" // getArticleId={this.getArticleId}
-            getSearchValue={this.getSearchValue} />
+             />
 
             <Article path="/articles/:articleid" />
 
             <Topics path="/topics" />
-            <AllArticles path="topic/:slug" getSearchValue={this.getSearchValue} />
+            <AllArticles path="/topics/:slug"  />
             <Users path="/users" />
             <User path="/users/user" />
           </Router>
@@ -41,16 +40,7 @@ class App extends Component {
     </div>;
   }
  
-  getSearchValue = value => {
-    this.setState(
-      {
-        sort_by: value
-      },
-      () => {
-        console.log(this.state, 'state after get value');
-      }
-    );
-  };
+  
   login = user => {
     console.log(user)
     api.fetchUser(user)

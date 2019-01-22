@@ -3,10 +3,6 @@ import { Link } from '@reach/router';
 import * as api from '../Utils/fetchData';
 import Loader from './Loader';
 import formatDate from '../Utils/utilFunctions';
-import filterArticles from '../Utils/FilterArticles';
-
-
-
 
 class AllArticles extends Component {
   state = {
@@ -19,7 +15,6 @@ class AllArticles extends Component {
   render() {
     const { isLoading } = this.state;
     let { articles } = this.state;
-    const { slug } = this.props;
     if (isLoading)
       return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
@@ -42,7 +37,7 @@ class AllArticles extends Component {
             <option value="?sort_by=comment_count">most comments</option>
           </select>
         </form>
-        {filterArticles(articles, slug).map(
+        {articles.map(
           ({ article_id, title, topic, author, created_at }) => {
             return (
               <li key={article_id}>
@@ -66,11 +61,21 @@ class AllArticles extends Component {
   }
 
   componentDidMount = () => {
-    this.fetchArticles();
+    const { slug } = this.props;
+    console.log(slug)
+    if (slug) {
+      this.fetchArticlesByTopic()
+    } else {
+      this.fetchArticles();
+    }
+    
   };
   componentDidUpdate = (prevState, prevProps) => {
     const { value } = this.state;
-    if (prevState.value !== this.state.value) {
+    console.log(value)
+    console.log(prevState.value)
+    if (prevState.value !== this.state.value && this.state.value !== '') {
+      console.log('hello update!')
       api.fetchArticlesSort(value).then(articles => {
         this.setState({
           articles
@@ -80,18 +85,28 @@ class AllArticles extends Component {
   };
 
   fetchArticles = () => {
-    const { slug } = this.props;
     api.fetchAllArticles().then(articles => {
       this.setState({
         articles,
         isLoading: false,
-        slug
+        
       });
     });
   };
 
+  fetchArticlesByTopic = () => {
+    const { slug } = this.props;
+    api.fetchArticlesByTopic(slug)
+    .then(articles => {
+      console.log('topic articles length', articles.length)
+      this.setState({ articles, isLoading: false }, () => {
+       console.log(this.state)
+      });
+    })
+
+  }
+
   handleChange = event => {
-    this.props.getSearchValue(event.target.value);
     this.setState({
       value: event.target.value
     });
