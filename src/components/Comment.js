@@ -43,8 +43,10 @@ class Comment extends Component {
     handleDeleteComment = () => {
         const { deleteComment } = this.props; 
         const { commentid, articleid } = this.state;
+        console.log('>>>>', commentid, articleid)
         api.deleteData(commentid, articleid)
         .then(res => {
+            console.log(res, '<<<<<')
             deleteComment(commentid);
         })
         .catch(err => console.log(err))

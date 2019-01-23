@@ -14,6 +14,7 @@ import * as api from './Utils/fetchData';
 import Logout from './components/Logout';
 
 
+
 class App extends Component {
   state = {
     article_id: '',
@@ -21,29 +22,25 @@ class App extends Component {
   };
   render() {
     return <div className="App">
-        
-      <Logout logout={this.handleLogOut}/>
-          <Header />
-          <Navbar />
-          
-      <Login login={this.login} user={this.state.user}>
+        <Logout logout={this.handleLogOut} />
+        <Header />
+        <Navbar />
+
+        <Login login={this.login} user={this.state.user}>
           <Router>
             <Home path="/" />
-            <AllArticles path="/articles" 
-             />
+            <AllArticles path="/articles" user={this.state.user} />
 
-            <Article 
-              path="/articles/:articleid" 
-              user={this.state.user}
-            />
+            <Article path="/articles/:articleid" user={this.state.user} />
 
             <Topics path="/topics" />
-            <AllArticles path="/topics/:slug"  />
+          <AllArticles path="/topics/:slug" user={this.state.user} />
+
             <Users path="/users" />
             <User path="/users/user" />
           </Router>
-      </Login>
-    </div>;
+        </Login>
+      </div>;
   }
   
   componentDidMount = () => {

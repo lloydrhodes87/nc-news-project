@@ -2,20 +2,12 @@ import axios from 'axios';
 
 const BASE_URL = 'https://lloyd-news.herokuapp.com/api';
 
-export const fetchAllArticles = async() => {
-    const { data } = await axios.get(`${BASE_URL}/articles`);
-    return data.articles;
-}
 
 export const fetchArticle = async (id) => {
     const { data } = await axios.get(`${BASE_URL}/articles/${id}`);
     return data;
 }
 
-export const fetchArticlesByTopic = async (topic) => {
-    const { data } = await axios.get(`${BASE_URL}/topics/${topic}/articles`)
-    return data.articles;
-}
 
 export const fetchComments = async (id) => {
     const { data } = await axios.get(`${BASE_URL}/articles/${id}/comments`);
@@ -23,8 +15,8 @@ export const fetchComments = async (id) => {
 }
 
 export const deleteData = async (commentid, articleid) => {
-    const { data } = await axios.delete(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`);
-    return data;
+    await axios.delete(`https://lloyd-news.herokuapp.com/api/articles/${String(articleid)}/comments/${commentid}`);
+    
 }
 
 export const fetchTopics = async () => {
@@ -32,12 +24,20 @@ export const fetchTopics = async () => {
     return data.topics;
 }
 
-export const fetchArticlesSort = async(query) => {
-    const { data } = await axios.get(`${BASE_URL}/articles${query}`);
-    return data.articles;
-}
 
 export const fetchUser = async(user) => {
     const { data } = await axios.get(`${BASE_URL}/users/${user}`);
     return data.user;
+}
+
+
+export const fetchArticles = async (slug, sort_by='created_at', p=1) => {
+    console.log('here')
+    const request = slug ? 
+        `${BASE_URL}/topics/${slug}/articles?sort_by=${sort_by}&p=${p}` :
+        `${BASE_URL}/articles?sort_by=${sort_by}&p=${p}`;
+
+    const { data } = await axios.get(request);
+    console.log(data, 'after request ')
+    return data.articles;
 }

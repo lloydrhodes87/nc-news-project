@@ -5,42 +5,50 @@ import Loader from './Loader';
 
 
 class AllTopics extends Component {
-    state = {
-        isLoading: true,
-        topics: []
-    }
-    render() {
-        const { isLoading } = this.state;
-        const { topics } = this.state;
-        if (isLoading) return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
-        return (
-             <div>
-            <ul>
-                {topics.map(({slug, description}) => {
-                    return <li key={slug}>
-                        <p>Topic: {slug} </p>
-                        <p>{description}</p>
-                        <Link to={`/topics/${slug}`}>View Articles</Link>
-                    </li>
-                })}
-                
-            </ul>
-        </div>
-        );
-    }
-    componentDidMount = () => {
-        this.fetchTopics();
-    }
-    fetchTopics = () => {
-        api.fetchTopics()
-            .then(topics => {
-                this.setState({
-                    topics,
-                    isLoading: false
-                }, () => console.log(this.state))
-            })
-    }
-
+  state = {
+    isLoading: true,
+    topics: []
+  };
+  render() {
+    const { isLoading } = this.state;
+    const { topics } = this.state;
+    if (isLoading)
+      return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
+    return (
+      <div>
+        <ul>
+          {topics.map(({ slug, description }) => {
+            return (
+              <li key={slug}>
+                <p>Topic: {slug} </p>
+                <p>{description}</p>
+                <Link to={`/topics/${slug}`}>View Articles</Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+  componentDidMount = () => {
+    this.fetchTopics();
+  };
+  fetchTopics = () => {
+    api.fetchTopics().then(topics => {
+      this.setState(
+        {
+          topics,
+          isLoading: false
+        },
+        () => console.log(this.state)
+      );
+    });
+  };
+//   addTopic = topic => {
+//     this.setState(prevState => {
+//       return { topics: [topic, ...prevState.topics] };
+//     });
+//   };
 }
 
 export default AllTopics;

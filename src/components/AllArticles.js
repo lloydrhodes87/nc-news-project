@@ -3,38 +3,51 @@ import { Link } from '@reach/router';
 import * as api from '../Utils/fetchData';
 import Loader from './Loader';
 import formatDate from '../Utils/utilFunctions';
+import AddArticle from './AddArticle';
+import throttle from 'lodash.throttle';
+
 
 class AllArticles extends Component {
   state = {
-    slug: '',
     articles: [],
     isLoading: true,
     value: '',
-    search: ''
+    search: '',
+    page: 1,
+    hasAllArticles: false
+
   };
   render() {
+    
     const { isLoading } = this.state;
     let { articles } = this.state;
+
+    console.log(articles)
+    
+    // articles.forEach((article, index) => {
+    //   const firstIndex = articles.findIndex(firstarticle => article.article_id === firstarticle.article_id) 
+    //   if (firstIndex !== index) {
+    //     console.log(article)
+    //   }
+    // })
+    const { username } = this.props.user
     if (isLoading)
       return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
+      
       <div className="articleList">
+      
+        <AddArticle fetchNewArticle={this.fetchNewAticle} user={this.props.user} />
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="title">Topic Title</label>
-          <input type="text" id="title" />
-          <button type="submit" onClick={this.handleSort}>
-            Search
-          </button>
           <select onChange={this.handleChange}>
-            <option />
-            <option value="?sort_by=created_at&sort_ascending=false">
+            <option value="created_at">
               date first
             </option>
-            <option value="?sort_by=created_at&sort_ascending=true">
+            <option value="created_at&sort_ascending=true">
               date last
             </option>
-            <option value="?sort_by=votes&sort_ascending=true">votes</option>
-            <option value="?sort_by=comment_count">most comments</option>
+            <option value="votes&sort_ascending=true">votes</option>
+            <option value="comment_count">most comments</option>
           </select>
         </form>
         {articles.map(
@@ -43,7 +56,7 @@ class AllArticles extends Component {
               <li key={article_id}>
                 <p>Title: {title}</p>
                 <p>Topic: {topic}</p>
-                <p>Author: {author}</p>
+                <p>Author: {username}</p>
                 <p>Date: {formatDate(created_at)}</p>
 
                 <Link
@@ -61,52 +74,68 @@ class AllArticles extends Component {
   }
 
   componentDidMount = () => {
+    window.addEventListener('scroll', this.handleScroll)
     const { slug } = this.props;
     console.log(slug)
-    if (slug) {
-      this.fetchArticlesByTopic()
-    } else {
-      this.fetchArticles();
-    }
-    
+    this.handleFetchArticles(); 
   };
-  componentDidUpdate = (prevState, prevProps) => {
-    const { value } = this.state;
-    console.log(value)
-    console.log(prevState.value)
+
+  componentDidUpdate = (prevProps, prevState) => {    
+    const pageUpdate = prevState.page !== this.state.page;
+    const topicUpdate = prevProps.slug !== this.props.slug;
     if (prevState.value !== this.state.value && this.state.value !== '') {
-      console.log('hello update!')
-      api.fetchArticlesSort(value).then(articles => {
-        this.setState({
-          articles
-        });
-      });
+      this.handleFetchArticles()   
     }
+    if (pageUpdate && !this.state.hasAllArticles) {
+        this.handleFetchArticles()
+    }
+    if (topicUpdate) {
+      this.resetToFirstPage()
+      console.log('5');
+    }
+
   };
 
-  fetchArticles = () => {
-    api.fetchAllArticles().then(articles => {
-      this.setState({
-        articles,
-        isLoading: false,
-        
-      });
-    });
-  };
+ 
+  handleScroll = throttle(() => {
+    const distanceFromTop = window.scrollY;
+    const heightOfScreen = window.innerHeight;
+    const fullDocumentHeight = document.body.scrollHeight;
 
-  fetchArticlesByTopic = () => {
+    if (distanceFromTop + heightOfScreen > fullDocumentHeight - 100) {
+      console.log('at bottom')
+      this.setState(({ page }) => ({
+        page: page + 1
+      }))
+    }
+  }, 1000) 
+
+  handleFetchArticles = () => {
+    const { page, value } = this.state;
     const { slug } = this.props;
-    api.fetchArticlesByTopic(slug)
-    .then(articles => {
-      console.log('topic articles length', articles.length)
-      this.setState({ articles, isLoading: false }, () => {
-       console.log(this.state)
-      });
+    api.fetchArticles(slug, value, page).then(newArticles => {
+      console.log(newArticles, 'after call')
+      this.setState(({ articles }) => ({
+        articles: page === 1 ? newArticles : [...articles, ...newArticles],
+        isLoading: false
+        }));
+        if (!newArticles.length) 
+        this.setState({
+          hasAllArticles: true,
+          isLoading: false
+        })
     })
+    .catch(err => {
+      this.setState({
+        hasAllArticles: true,
+        isLoading: false
+      })
+    })
+  };
 
-  }
 
   handleChange = event => {
+    console.log('ETV:', event.target.value)
     this.setState({
       value: event.target.value
     });
@@ -117,6 +146,17 @@ class AllArticles extends Component {
       value: ''
     });
   };
+  fetchNewAticle = (article) => {
+    this.setState((prevState) => ({
+      articles: [article, ...prevState.articles]
+    }))
+  }
+  resetToFirstPage = () => {
+    this.setState({
+      page: 1,
+      hasAllArticles: false
+    })
+  }
 }
 
 export default AllArticles;

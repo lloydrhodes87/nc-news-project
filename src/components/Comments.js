@@ -41,6 +41,7 @@ class Comments extends Component {
         this.handleFetchComments();
     }
     handleFetchComments = () => {
+        
         const { articleid } = this.props;
         api.fetchComments(articleid)
             .then(comments => {
@@ -55,8 +56,8 @@ class Comments extends Component {
         })
 
     }
-    deleteComment = (commentid) => {
     
+    deleteComment = (commentid) => {
         this.setState((prevState) => ({
             comments: prevState.comments.filter(({comment_id}) => comment_id !== commentid)
         }), () => {
