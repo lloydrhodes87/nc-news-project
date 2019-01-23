@@ -8,30 +8,32 @@ class Voter extends Component {
     render() {
         const { voteChange } = this.state;
         const { votes } = this.props
-        return (
-            <div>
-                <p>Votes: {voteChange + votes}</p>
-                <button type="submit" onClick={() => this.handleUpdateVote(1)}>
-                    Vote Up
-        </button>
-                <button type="submit" onClick={() => this.handleUpdateVote(-1)}>
-                    Vote Down
-        </button>
-
-            </div>
-        );
+        return <div>
+            <p>Votes: {voteChange + votes}</p>
+            <button disabled={voteChange > 0} type="submit" onClick={() => this.handleUpdateVote(1)}>
+              Vote Up
+            </button>
+            <button disabled={voteChange < 0} type="submit" onClick={() => this.handleUpdateVote(-1)}>
+              Vote Down
+            </button>
+          </div>;
     }
 
 
 
     handleUpdateVote = direction => {
+        const { parent } = this.props;
+
 
         this.setState(prevState => ({
             voteChange: prevState.voteChange + direction
         }));
         const { commentid, articleid } = this.props;
-        const reqStr = `https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`;
+        const reqStr = parent === 'comments' 
+            ? `https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}` 
+            : `https://lloyd-news.herokuapp.com/api/articles/${articleid}`
 
+            console.log(reqStr)
         const vote = {
             inc_votes: direction
         }

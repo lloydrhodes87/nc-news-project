@@ -22,15 +22,6 @@ class AllArticles extends Component {
     const { isLoading } = this.state;
     let { articles } = this.state;
 
-    console.log(articles)
-    
-    // articles.forEach((article, index) => {
-    //   const firstIndex = articles.findIndex(firstarticle => article.article_id === firstarticle.article_id) 
-    //   if (firstIndex !== index) {
-    //     console.log(article)
-    //   }
-    // })
-    const { username } = this.props.user
     if (isLoading)
       return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (

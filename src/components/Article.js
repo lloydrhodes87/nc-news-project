@@ -4,6 +4,7 @@ import Comments from './Comments';
 import * as api from '../Utils/fetchData';
 import Loader from './Loader';
 import formatDate from '../Utils/utilFunctions';
+import Voter from './Voter';
 
 class Article extends Component {
     
@@ -16,7 +17,7 @@ class Article extends Component {
     render() {
         
         const { isLoading } = this.state;
-        const { body, title, author, created_at } = this.state.article
+        const { body, title, author, created_at, votes } = this.state.article
         if (isLoading) return <Loader />;
 
         const {articleid, user } = this.props;
@@ -26,18 +27,19 @@ class Article extends Component {
             <p>{body}</p>
             <p>by {author}</p>
             <p>published: {formatDate(created_at)}</p>
+            <Voter 
+                votes={votes}
+                articleid={articleid}
+
+            />
             <button type="submit">
               <Link to="/articles">Back</Link>
             </button>
             <button onClick={this.handleToggleComments} type="submit">
               comments
             </button>
-            {this.state.toggleComments && 
-                <Comments 
-                    comments={this.state.comments} 
-                    articleid={articleid}
-                    user={user}
-                />}
+
+            {this.state.toggleComments && <Comments comments={this.state.comments} articleid={articleid} user={user} />}
           </div>;
     }
   

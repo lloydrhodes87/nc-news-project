@@ -35,7 +35,8 @@ class Comments extends Component {
               <Voter
                 votes={comment.votes}   
                 articleid={articleid}   
-                commentid={comment.comment_id} 
+                commentid={comment.comment_id}
+                parent="comments" 
               />
               <button 
                 type="submit"
