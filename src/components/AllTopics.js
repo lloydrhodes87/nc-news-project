@@ -1,7 +1,9 @@
+
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
 import * as api from '../Utils/fetchData';
 import Loader from './Loader';
+import Topics from './Topics';
 
 
 class AllTopics extends Component {
@@ -10,8 +12,7 @@ class AllTopics extends Component {
     topics: []
   };
   render() {
-    const { isLoading } = this.state;
-    const { topics } = this.state;
+    const { isLoading, topics } = this.state;
     if (isLoading)
       return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
@@ -27,12 +28,15 @@ class AllTopics extends Component {
             );
           })}
         </ul>
+        <Topics getTopic={this.getTopic} />
       </div>
     );
   }
   componentDidMount = () => {
+    console.log('is it mounted')
     this.fetchTopics();
   };
+ 
   fetchTopics = () => {
     api.fetchTopics().then(topics => {
       this.setState(
@@ -44,11 +48,17 @@ class AllTopics extends Component {
       );
     });
   };
-//   addTopic = topic => {
-//     this.setState(prevState => {
-//       return { topics: [topic, ...prevState.topics] };
-//     });
-//   };
+
+
+  getTopic = (topic) => {
+    console.log(topic, 'in all topics');
+    console.log(this.state.topics)
+    this.setState(prevState => {
+      
+      return { topics: [topic, ...prevState.topics] };
+    })
+  }
+
 }
 
 export default AllTopics;

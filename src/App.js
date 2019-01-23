@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import { Router } from '@reach/router'
 import AllArticles from './components/AllArticles';
 import Article from './components/Article';
-import Topics from './components/Topics';
+import AllTopics from './components/AllTopics';
 import Users from './components/Users';
 import Home from './components/Home';
 import User from './components/User';
@@ -33,7 +33,7 @@ class App extends Component {
 
             <Article path="/articles/:articleid" user={this.state.user} getArticleId={this.getArticleId} />
 
-            <Topics path="/topics" />
+            <AllTopics path="/topics" />
             <AllArticles path="/topics/:slug" user={this.state.user} />
 
             <Users path="/users" />

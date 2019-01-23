@@ -103,6 +103,7 @@ class Comments extends Component {
       });
   };
   getComment = comment => {
+      console.log(comment, 'comment is here')
     this.setState(prevState => {
       return { comments: [comment, ...prevState.comments] };
     });

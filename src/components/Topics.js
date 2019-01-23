@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AllTopics from './AllTopics';
+import axios from 'axios';
 
 
 class Topics extends Component {
@@ -19,7 +19,7 @@ class Topics extends Component {
                         <input type="text" value={this.state.description} onChange={this.handleChange} id="description"></input>
                         <button type="submit">Add Topic</button>
                     </form>
-                    <AllTopics />
+                    
                 </div>
             
         );
@@ -32,31 +32,26 @@ class Topics extends Component {
     }
     onSubmit = (event) => {
         event.preventDefault();
-        this.addTopic()
+        this.addTopicCall();
         this.setState({
             slug: '',
             description: ''
         })
     }
-    // addTopic = () => {
-    //     const { slug } = this.state;
-    //     return fetch(`https://lloyd-news.herokuapp.com/api/topics/${slug}/articles`, {
-    //         method: 'POST',
-    //         headers: {
-    //             Accept: 'application/json',
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             slug: this.state.slug,
-    //             description: this.state.description
-    //         })
-    //     }).then(res => res.json())
-    //         .then(({ topic }) => {
-    //             console.log(topic, 'adding topic')
-    //         })
+
+    addTopicCall = async () => {
+        const topic = {
+            slug: this.state.slug,
+            description: this.state.description
+        }
+        await axios.post(`https://lloyd-news.herokuapp.com/api/topics`, topic)
+        .then(({data}) => {
+            this.props.getTopic(data.topic)
+        })
+        
+    }
 
 
-    // }
 }
 
 export default Topics;
