@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import * as api from '../Utils/fetchData';
 
 class AddArticle extends Component {
   state = {
     title: '',
     body: '',
     topic: '',
-    username: this.props.user.username
+    username: this.props.user.username,
+    topics: []
 
   }
     render() {
-        const { user } = this.props
+        const { user } = this.props;
+        const { topics } = this.state;
          return <div>
             <form onSubmit={this.handleSubmit}>
               <label htmlFor="title">Article Title:</label>
@@ -20,9 +23,9 @@ class AddArticle extends Component {
               <label htmlFor="topic"></label>
             <select id="topic" value ={this.state.topic} onChange={this.handleChange}>
                 <option />
-                <option id="topic" value="coding">coding</option>
-                <option id="topic"  value="cooking">cooking</option>
-                <option id="topic"  value="football">football</option>
+                {topics.map(topic => {
+                  return <option key={topic.slug} id={topic} value={topic.slug}>{topic.slug}</option>
+                })}
               </select>
               <p>Posting as: {user.username}</p>
               <button>Add Article</button>
@@ -30,6 +33,10 @@ class AddArticle extends Component {
             </form>
           </div>;
     }
+    componentDidMount = () => {
+      this.setTopicArray();
+    }
+
     handleChange = (event) => {
       const { id, value } = event.target;
       this.setState({
@@ -50,20 +57,24 @@ class AddArticle extends Component {
       };
       axios.post(`https://lloyd-news.herokuapp.com/api/topics/${topic}/articles`, this.state, axiosConfig)
         .then(({data}) => {
-          const article = data.article
-          
+          const article = data.article  
           fetchNewArticle(article)
         })
         .catch((err) => {
           console.log("AXIOS ERROR: ", err);
         })
-
-      
-      // make call
       this.setState({
         username: '',
         body: '',
         topic: ''
+      })
+    }
+    setTopicArray = () => {
+      api.fetchTopics()
+      .then(topics => {
+        this.setState({
+          topics
+        })
       })
     }
 }

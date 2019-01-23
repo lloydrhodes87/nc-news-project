@@ -28,7 +28,7 @@ class Topics extends Component {
         const { value, id } = event.target;
         this.setState({
             [id]: value
-        }, console.log(this.state))
+        })
     }
     onSubmit = (event) => {
         event.preventDefault();

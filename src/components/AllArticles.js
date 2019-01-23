@@ -82,7 +82,6 @@ class AllArticles extends Component {
       this.resetToFirstPage();
     }
     if (prevState.articleid === '') {
-      console.log('setting article id')
       this.setState({ articleid: this.props.location.state.articleid });
     }
     if (articleDelete) {
@@ -115,7 +114,6 @@ class AllArticles extends Component {
     api
       .fetchArticles(slug, value, page)
       .then(newArticles => {
-        console.log(newArticles, 'after call');
         this.setState(({ articles }) => ({
           articles: page === 1 ? newArticles : [...articles, ...newArticles],
           isLoading: false
@@ -135,7 +133,6 @@ class AllArticles extends Component {
   };
 
   handleChange = event => {
-    console.log('ETV:', event.target.value);
     this.setState({
       value: event.target.value
     });

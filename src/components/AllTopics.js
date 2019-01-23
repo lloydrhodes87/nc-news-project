@@ -33,7 +33,6 @@ class AllTopics extends Component {
     );
   }
   componentDidMount = () => {
-    console.log('is it mounted')
     this.fetchTopics();
   };
  
@@ -43,8 +42,7 @@ class AllTopics extends Component {
         {
           topics,
           isLoading: false
-        },
-        () => console.log(this.state)
+        }
       );
     });
   };
