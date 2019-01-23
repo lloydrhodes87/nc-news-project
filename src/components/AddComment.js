@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 
 class AddComment extends Component {
   state = {
-    username: this.props.user.username,
-    body: '',
-    articleid: this.props.articleid
+    body: ''
   };
   
   render() {
@@ -38,7 +36,8 @@ class AddComment extends Component {
     };
 
   addComment = () => {
-    const { articleid } = this.state;
+    const { articleid } = this.props;
+    console.log(this.props.user.username)
     return fetch(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments`, {
       method: 'POST',
       headers: {
@@ -47,7 +46,7 @@ class AddComment extends Component {
       },
       body: JSON.stringify({
         body: this.state.body,
-        username: this.state.username
+        username: this.props.user.username
       })
     }).then(res => res.json())
     .then(({comment}) => {

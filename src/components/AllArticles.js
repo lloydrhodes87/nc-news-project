@@ -56,7 +56,7 @@ class AllArticles extends Component {
               <li key={article_id}>
                 <p>Title: {title}</p>
                 <p>Topic: {topic}</p>
-                <p>Author: {username}</p>
+                <p>Author: {author}</p>
                 <p>Date: {formatDate(created_at)}</p>
 
                 <Link
@@ -75,8 +75,6 @@ class AllArticles extends Component {
 
   componentDidMount = () => {
     window.addEventListener('scroll', this.handleScroll)
-    const { slug } = this.props;
-    console.log(slug)
     this.handleFetchArticles(); 
   };
 
@@ -103,7 +101,7 @@ class AllArticles extends Component {
     const fullDocumentHeight = document.body.scrollHeight;
 
     if (distanceFromTop + heightOfScreen > fullDocumentHeight - 100) {
-      console.log('at bottom')
+      console.log('here')
       this.setState(({ page }) => ({
         page: page + 1
       }))

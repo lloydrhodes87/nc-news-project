@@ -9,14 +9,15 @@ export const fetchArticle = async (id) => {
 }
 
 
-export const fetchComments = async (id) => {
-    const { data } = await axios.get(`${BASE_URL}/articles/${id}/comments`);
+export const fetchComments = async (id, sort_by = 'created_at', p = 1, limit=10) => {
+    const { data } = await axios.get(`${BASE_URL}/articles/${id}/comments?sort_by=${sort_by}&p=${p}&limit=${limit}`);
     return data.comments;
 }
 
 export const deleteData = async (commentid, articleid) => {
-    await axios.delete(`https://lloyd-news.herokuapp.com/api/articles/${String(articleid)}/comments/${commentid}`);
     
+    axios.delete(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`);
+    console.log('inside delete', commentid, articleid);
 }
 
 export const fetchTopics = async () => {
