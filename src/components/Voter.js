@@ -32,8 +32,6 @@ class Voter extends Component {
         const reqStr = parent === 'comments' 
             ? `https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}` 
             : `https://lloyd-news.herokuapp.com/api/articles/${articleid}`
-
-            console.log(reqStr)
         const vote = {
             inc_votes: direction
         }

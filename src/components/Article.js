@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import Comments from './Comments';
 import * as api from '../Utils/fetchData';
 import Loader from './Loader';
 import formatDate from '../Utils/utilFunctions';
 import Voter from './Voter';
+
 
 class Article extends Component {
     
@@ -27,13 +28,15 @@ class Article extends Component {
             <p>{body}</p>
             <p>by {author}</p>
             <p>published: {formatDate(created_at)}</p>
-            <Voter 
-                votes={votes}
-                articleid={articleid}
-
-            />
+            <Voter votes={votes} articleid={articleid} />
             <button type="submit">
               <Link to="/articles">Back</Link>
+            </button>
+            <button type="submit" onClick={this.handleDeleteArticle} >
+            {
+                 // disabled={user.username !== author}
+            }
+              Delete
             </button>
             <button onClick={this.handleToggleComments} type="submit">
               comments
@@ -63,6 +66,17 @@ class Article extends Component {
                 article: singleArticle,
                 isLoading: false,
             })
+        })
+    }
+    passArticleIdUp = () => {
+        const { articleid } = this.props;
+        navigate(`/articles`, {state: { articleid }} );
+    }
+    handleDeleteArticle = () => {
+        const { articleid } = this.props;
+        api.deleteData(articleid)
+        .then(() => {
+            this.passArticleIdUp()
         })
     }
   

@@ -18,7 +18,7 @@ import Logout from './components/Logout';
 class App extends Component {
   state = {
     article_id: '',
-    user: ''
+    user: '',
   };
   render() {
     return <div className="App">
@@ -29,12 +29,12 @@ class App extends Component {
         <Login login={this.login} user={this.state.user}>
           <Router>
             <Home path="/" />
-            <AllArticles path="/articles" user={this.state.user} />
+            <AllArticles path="/articles" user={this.state.user}  />
 
-            <Article path="/articles/:articleid" user={this.state.user} />
+            <Article path="/articles/:articleid" user={this.state.user} getArticleId={this.getArticleId} />
 
             <Topics path="/topics" />
-          <AllArticles path="/topics/:slug" user={this.state.user} />
+            <AllArticles path="/topics/:slug" user={this.state.user} />
 
             <Users path="/users" />
             <User path="/users/user" />
@@ -53,7 +53,6 @@ class App extends Component {
   }
   
   login = user => {
-    console.log(user)
     api.fetchUser(user)
     .then(user => {
       

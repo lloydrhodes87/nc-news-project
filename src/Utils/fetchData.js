@@ -14,10 +14,19 @@ export const fetchComments = async (id, sort_by = 'created_at', p = 1, limit=10)
     return data.comments;
 }
 
-export const deleteData = async (commentid, articleid) => {
+export const deleteData = async (articleid, commentid) => {
+    console.log(articleid, commentid)
+    const url = commentid ? 
+        `https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}` :
+        `https://lloyd-news.herokuapp.com/api/articles/${articleid}`;
+    console.log(url)
+    await axios.delete(url)
+    .then(() => {
+        console.log('getting to delewted');
+    })
     
-    axios.delete(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}`);
-    console.log('inside delete', commentid, articleid);
+    
+   
 }
 
 export const fetchTopics = async () => {
@@ -39,6 +48,5 @@ export const fetchArticles = async (slug, sort_by='created_at', p=1) => {
         `${BASE_URL}/articles?sort_by=${sort_by}&p=${p}`;
 
     const { data } = await axios.get(request);
-    console.log(data, 'after request ')
     return data.articles;
 }
