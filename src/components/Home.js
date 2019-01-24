@@ -1,9 +1,13 @@
+import RecentArticles from './RecentArticles';
+import Trending from './Trending';
+
 import React from 'react';
 
 const Home = () => {
     return (
         <div>
-            <h1>Home</h1>
+            <RecentArticles />
+            <Trending />
         </div>
     );
 };

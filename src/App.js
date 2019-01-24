@@ -12,8 +12,8 @@ import User from './components/User';
 import Login from './components/Login';
 import * as api from './Utils/fetchData';
 import Logout from './components/Logout';
-import RecentArticles from './components/RecentArticles';
-import Trending from './components/Trending';
+import LoggedIn from './components/LoggedIn';
+
 
 
 
@@ -21,14 +21,17 @@ class App extends Component {
   state = {
     article_id: '',
     user: '',
+    loggedIn: false
   };
   render() {
     return <div className="App">
         <Logout logout={this.handleLogOut} />
+        {this.state.loggedIn && <LoggedIn user={this.state.user} />}
         <Header />
         <Navbar />
         
         <Login login={this.login} user={this.state.user}>
+        
           <Router>
             <Home path="/" />
             <AllArticles path="/articles" user={this.state.user}  />
@@ -41,9 +44,9 @@ class App extends Component {
             <Users path="/users" />
             <User path="/users/user" />
           </Router>
+       
         </Login>
-      <RecentArticles />
-      <Trending />
+      
       </div>;
   }
   
@@ -60,9 +63,10 @@ class App extends Component {
     api.fetchUser(user)
     .then(user => {
       
-      this.setState({
-        user
-      })
+      this.setState((prevState) => ({
+        user,
+        loggedIn: true
+      }))
         sessionStorage.setItem('user', JSON.stringify(user))
       
     }
@@ -71,7 +75,8 @@ class App extends Component {
   handleLogOut = () => {
     sessionStorage.clear();
     this.setState({
-      user: ''
+      user: '',
+      loggedIn: false
     }, () => { 
       console.log(this.state)
     })
