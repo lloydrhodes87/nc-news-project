@@ -16,22 +16,35 @@ class AddArticle extends Component {
         const { topics } = this.state;
         
          return <div>
-            <form onSubmit={this.handleSubmit}>
-              <label htmlFor="title">Article Title:</label>
-              <input id="title" type="text" onChange={this.handleChange} value={this.state.title} />
-              <label htmlFor="body">Body:</label>
-              <input id="body" type="text" onChange={this.handleChange} value={this.state.body}></input>
-              <label htmlFor="topic"></label>
-            <select id="topic" value ={this.state.topic} onChange={this.handleChange}>
-                <option />
-                {topics.map(topic => {
-                  return <option key={topic.slug} id={topic} value={topic.slug}>{topic.slug}</option>
-                })}
-              </select>
-              <p>Posting as: {user.username}</p>
-              <button>Add Article</button>
+           <form onSubmit={this.handleSubmit}>
+          <div className="topAddArticleForm">
+               <label htmlFor="title"></label>
+               <input id="title" type="text" onChange={this.handleChange} value={this.state.title} placeholder="Title" required/>
+               <label htmlFor="body"></label>
+               <textarea id="body" type="text" onChange={this.handleChange} value={this.state.body} placeholder="Body" required></textarea>
+               <label className="selectLabel" htmlFor="topic">Topic</label>
+               <div className="categories">
+                 <select className="select" id="topic" value={this.state.topic} onChange={this.handleChange} required>
+                   <option />
+                   {topics.map(topic => {
+                     return <option key={topic.slug} id={topic} value={topic.slug}>{topic.slug}</option>
+                   })}
+                 </select>
+               </div>
+               
+          
+          </div>
+            
+              
+              <div className="postingAsBox">
+               <img id="postingAs" src={user.avatar_url} alt="avatar"></img>
+               <p>Posting as: {user.username}</p>
+              </div>
+              
+              <button id="addArticleButton">Add Article</button>
 
             </form>
+            <hr id="hr"></hr>
           </div>;
     }
     componentDidMount = () => {
@@ -39,9 +52,13 @@ class AddArticle extends Component {
     }
 
     handleChange = (event) => {
+      console.log(event, 'handle change')
       const { id, value } = event.target;
+      console.log(id, value)
       this.setState({
         [id]: value
+      }, () => {
+        console.log(this.state, 'this is the state after change')
       })
     }
     handleSubmit = (event) => {

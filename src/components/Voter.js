@@ -9,12 +9,12 @@ class Voter extends Component {
         const { voteChange } = this.state;
         const { votes } = this.props
         return <div>
-            <p>Votes: {voteChange + votes}</p>
-            <button disabled={voteChange > 0} type="submit" onClick={() => this.handleUpdateVote(1)}>
-              Vote Up
+            <p className="votes">Votes: {voteChange + votes}</p>
+            <button className="voteButton" disabled={voteChange > 0} type="submit" onClick={() => this.handleUpdateVote(1)}>
+              <img className="thumb" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/155/thumbs-up-sign_1f44d.png" alt="thumb down" />
             </button>
-            <button disabled={voteChange < 0} type="submit" onClick={() => this.handleUpdateVote(-1)}>
-              Vote Down
+            <button className="voteButton" disabled={voteChange < 0} type="submit" onClick={() => this.handleUpdateVote(-1)}>
+              <img className="thumb" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/155/thumbs-down-sign_1f44e.png" alt="thumb down" />
             </button>
           </div>;
     }

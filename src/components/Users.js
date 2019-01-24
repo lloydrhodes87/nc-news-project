@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import * as api from '../Utils/fetchData';
+import Loader from './Loader';
 
 class Users extends Component {
   _isMounted = false;
   state = {
-    users: []
+    users: [],
+    isLoading: true
   };
   render() {
 
-    const { users } = this.state
+    const { users, isLoading } = this.state
+    if (isLoading) return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
       <div className="userComponent">
         <h2 className="userHeading">Users</h2>
@@ -35,15 +38,14 @@ class Users extends Component {
     this._isMounted = false;
   }
   fetchUsers = () => {
-    console.log('before fetch 2')
     api.fetchAllUsers().then(users => {
-      console.log(users, 'after fetch 3')
       if (this._isMounted) 
-      console.log(this._isMounted)
+
       this.setState(()=> ({
-        users: users
+        users: users,
+        isLoading: false
       }));
-    },console.log(this.state, 'setting state'));
+    });
   };
 }
 

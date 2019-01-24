@@ -18,38 +18,24 @@ class Comments extends Component {
     const { comments } = this.state;
     const { articleid, user } = this.props;
 
-
-    return (
-      <div>
-        <AddComment
-          articleid={articleid}
-          getComment={this.getComment}
-          user={user}
-        />
+    return <div className="commentsDiv">
+        <AddComment articleid={articleid} getComment={this.getComment} user={user} />
         <ul>
-          {comments.map(comment => (
-            <li key={comment.comment_id}>
-              <p>{comment.body}</p>
-              <p>published by: {comment.author}</p>
-              <p>left: {formatDate(comment.created_at)}</p>
-              <Voter
-                votes={comment.votes}   
-                articleid={articleid}   
-                commentid={comment.comment_id}
-                parent="comments" 
-              />
-              <button 
-                type="submit"
-                onClick={() => this.handleDeleteComment(articleid, comment.comment_id)}
-                disabled={user.username !== comment.author}
-                >
-                Delete
-              </button>
-            </li>
-          ))}
+        <div className="commentList">
+          {comments.map(comment => 
+              <li key={comment.comment_id}>
+                <p>{comment.body}</p>
+                <p>published by: {comment.author}</p>
+                <p>left: {formatDate(comment.created_at)}</p>
+                <Voter votes={comment.votes} articleid={articleid} commentid={comment.comment_id} parent="comments" />
+                <button type="submit" onClick={() => this.handleDeleteComment(articleid, comment.comment_id)} disabled={user.username !== comment.author}>
+                  Delete
+                </button>
+              </li>
+            )}
+        </div>
         </ul>
-      </div>
-    );
+      </div>;
   }
   componentDidMount = () => {
     window.addEventListener('scroll', this.handleScroll);

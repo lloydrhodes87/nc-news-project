@@ -5,6 +5,10 @@ import '../src/Styles/navbar.css';
 import '../src/Styles/logout.css';
 import '../src/Styles/topicsTop.css';
 import '../src/Styles/topicMain.css';
+import '../src/Styles/articles.css';
+import '../src/Styles/article.css';
+import '../src/Styles/comments.css';
+import '../src/Styles/newComment.css';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import { Router } from '@reach/router'
@@ -26,14 +30,14 @@ class App extends Component {
   state = {
     article_id: '',
     user: '',
-    loggedIn: false
+    loggedIn: false,
+    users: []
   };
   render() {
     return <div className="App">
         <div className="loggedTopArea">
           <Logout logout={this.handleLogOut} />
           {this.state.loggedIn && <LoggedIn user={this.state.user} />}
-          {console.log(this.state.loggedIn, 'am i logged in on ount')}
         </div>
 
         <Header />
@@ -42,12 +46,12 @@ class App extends Component {
         <Login login={this.login} user={this.state.user}>
           <Router>
             <Home path="/" />
-            <AllArticles path="/articles" user={this.state.user} />
+            <AllArticles path="/articles" user={this.state.user} users={this.state.users} />
 
-            <Article path="/articles/:articleid" user={this.state.user} getArticleId={this.getArticleId} />
+          <Article path="/articles/:articleid" user={this.state.user} getArticleId={this.getArticleId} users={this.state.users} />
 
             <AllTopics path="/topics" />
-            <AllArticles path="/topics/:slug" user={this.state.user} />
+          <AllArticles path="/topics/:slug" user={this.state.user} users={this.state.users}  />
 
             <Users path="/users" />
             <User path="/users/user" />
@@ -57,8 +61,8 @@ class App extends Component {
   }
   
   componentDidMount = () => {
+    this.fetchUsers();
     const stored = localStorage.getItem('user');
-    console.log(stored, 'stored state')
     const {user, loggedIn} = JSON.parse(stored);
     this.setState({
       user,
@@ -75,7 +79,6 @@ class App extends Component {
         user,
         loggedIn: true
       }), () => {
-        console.log(this.state)
         const state = this.state
           localStorage.setItem('user', JSON.stringify(state))
       })
@@ -89,10 +92,19 @@ class App extends Component {
     this.setState({
       user: '',
       loggedIn: false
-    }, () => { 
-      console.log(this.state)
     })
   };
+
+  fetchUsers = () => {
+    api.fetchAllUsers().then(users => {
+      console.log(users)
+      this.setState(() => ({
+        users: users
+      }));
+    }, console.log(this.state, 'setting state'));
+  };
+  
+
 }
 
 export default App;

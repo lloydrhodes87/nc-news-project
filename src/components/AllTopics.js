@@ -17,13 +17,13 @@ class AllTopics extends Component {
       return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
 
-      <div>
+      <div className="topicContainer">
         <h2 className="topicHeading"> Topics</h2>
         <Topics getTopic={this.getTopic} />
         <ul>
           {topics.map(({ slug, description }) => {
             return (
-              <li className="panel" key={slug}>
+              <li className="topic" key={slug}>
                 <h3>{slug[0].toUpperCase() + slug.substring(1)} </h3>
                 <p>{description}</p>
                 <Link id="linkToArticles" to={`/topics/${slug}`}>View Articles</Link>

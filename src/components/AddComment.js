@@ -11,10 +11,13 @@ class AddComment extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <img className="avatarInArticles" src={user.avatar_url} alt="avatar"></img>
           <p>commenting as:{user.username} </p>
-          <label htmlFor="body">Comment</label>
-                <input type="text" id="body" onChange={this.handleChange} value={this.state.body}/>
-          <button type="submit">Add Comment</button>
+          <div className="addCommentButton">
+            <label htmlFor="body"></label>
+            <textarea type="text" id="body" onChange={this.handleChange} value={this.state.body} />
+            <button type="submit">Add Comment</button>
+          </div>        
         </form>
       </div>
     );

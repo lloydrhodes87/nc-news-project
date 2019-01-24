@@ -1,0 +1,17 @@
+.commentsDiv {
+    margin-top: 5rem;
+}
+
+.commentList > li{
+    border: 1px solid rgb(255, 255, 255);
+    width: 50%;
+    padding: 4rem;
+    margin: 3rem auto;
+    border-radius: 10px;
+    background-color: rgb(101, 201, 255);
+    color: white;   
+}
+
+.commentList > li > p {
+    font-size: 1.3rem;
+}

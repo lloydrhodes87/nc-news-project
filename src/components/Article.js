@@ -16,35 +16,39 @@ class Article extends Component {
         
     }
     render() {
-        
         const { isLoading } = this.state;
         const { body, title, author, created_at, votes } = this.state.article
         if (isLoading) return <Loader />;
 
         const {articleid, user } = this.props;
-       
-        return <div>
-            <h2>{title}</h2>
-            <p>{body}</p>
-            <p>by {author}</p>
-            <p>published: {formatDate(created_at)}</p>
-            <Voter votes={votes} articleid={articleid} />
-            <button type="submit">
-              <Link to="/articles">Back</Link>
-            </button>
-            <button type="submit"
-            disabled={user.username !== author}
-            onClick={this.handleDeleteArticle} >
-            
-                 
+        const userObject = this.props.users.filter(user => user.username === author)
+        const { avatar_url } = userObject[0]
         
-              Delete
+        return <div>
+            
+            <h2 className="articleHeading">Article</h2>
+            <div className="individualArticle">
+            <h3 className="articleTitle singleArticleTitle">{title}</h3>
+              <p className="singleArticleP">{body}</p>
+                <img className="avatarInArticles" src={avatar_url} alt="avatar"></img>
+              <p>by {author}</p>
+              <p>published: {formatDate(created_at)}</p>
+              <Voter votes={votes} articleid={articleid} />
+            </div>
+            <div className="commentNavigation">
+                <button type="submit">
+                    <Link id="link" to="/articles">Back</Link>
+                </button>
+                <button type="submit" disabled={user.username !== author} onClick={this.handleDeleteArticle}>
+                    Delete
             </button>
-            <button onClick={this.handleToggleComments} type="submit">
-              comments
+                <button onClick={this.handleToggleComments} type="submit">
+                    comments
             </button>
-
-            {this.state.toggleComments && <Comments comments={this.state.comments} articleid={articleid} user={user} />}
+                {this.state.toggleComments && <Comments comments={this.state.comments} articleid={articleid} user={user} />}
+            
+            </div>
+            
           </div>;
     }
   
@@ -70,10 +74,7 @@ class Article extends Component {
             })
         })
     }
-    // passArticleIdUp = () => {
-    //     const { articleid } = this.props;
-    //     navigate(`/articles`, {state: { articleid }} );
-    // }
+    
     handleDeleteArticle = () => {
         const  articleid  = this.state.article.article_id;
         api.deleteData(articleid)

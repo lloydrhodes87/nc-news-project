@@ -24,7 +24,7 @@
     height: 4rem;
 }
 
-.logout > button {
+button {
     padding: 1rem 2rem;
     background-color:#65C8FF;
     border: 1px solid white;
@@ -35,6 +35,6 @@
     cursor: pointer;
 }
 
-.logout > button:hover {
+button:hover {
     transform: scale(1.1);
 }

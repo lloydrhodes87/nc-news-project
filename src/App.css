@@ -1,11 +1,9 @@
 .App {
   text-align: center;
-  background-color: rgb(235, 232, 232);
-  /* background-image: url('https://images.pexels.com/photos/443383/pexels-photo-443383.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); */
-  background-position: sticky;
-  background-repeat: no-repeat;
+}
 
-  
+body {
+ background-color: rgb(235, 232, 232);
 }
 
 html {
@@ -38,7 +36,6 @@ li {
   font-weight: 100;
   text-transform: uppercase;
   font-family: 'Lato', sans-serif;
-  font-weight: 400;
   background-color: 	#65C8FF;
   color: #f2f2f2;
   
@@ -47,44 +44,19 @@ li {
 h1 {
   margin: 0;
   padding: 0 0 3rem 0;
+  font-weight: 300;
+  font-size: 7rem;
+  font-weight: 300;
 }
 
-
-.articleList {
-
-  width: 60rem;
-  margin: 4rem auto;
-}
-
-.articleList > li {
-  margin-bottom: 2rem;
-  background-color: #29333552;
-  border-radius: 10px;
-  padding: 3rem;
-  color: #f2f2f2;
-  list-style: none;
-  font-size: 1.5rem;
-  box-shadow: inset 0px -4px 249px 0px rgba(66, 66, 66, 0.226);
-}
-
-.buttonViewArticles {
-  background-color: #1826289f;
-  color: white;
-  padding: 1rem 2rem;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 5px;
-  text-decoration: none;
-  margin-top: 1rem;
-}
-
-.buttonViewArticles > a {
-  color: white;
-}
 
 .avatar {
   width: 3rem;
   height: auto;
   border-radius: 50%;
+}
+
+.avatarInArticles {
+  width: 10rem;
+  height: auto;
 }
