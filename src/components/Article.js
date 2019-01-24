@@ -32,10 +32,12 @@ class Article extends Component {
             <button type="submit">
               <Link to="/articles">Back</Link>
             </button>
-            <button type="submit" onClick={this.handleDeleteArticle} >
-            {
-                 // disabled={user.username !== author}
-            }
+            <button type="submit"
+            disabled={user.username !== author}
+            onClick={this.handleDeleteArticle} >
+            
+                 
+        
               Delete
             </button>
             <button onClick={this.handleToggleComments} type="submit">
@@ -68,15 +70,16 @@ class Article extends Component {
             })
         })
     }
-    passArticleIdUp = () => {
-        const { articleid } = this.props;
-        navigate(`/articles`, {state: { articleid }} );
-    }
+    // passArticleIdUp = () => {
+    //     const { articleid } = this.props;
+    //     navigate(`/articles`, {state: { articleid }} );
+    // }
     handleDeleteArticle = () => {
-        const { articleid } = this.props;
+        const  articleid  = this.state.article.article_id;
         api.deleteData(articleid)
         .then(() => {
-            this.passArticleIdUp()
+            navigate('/articles')
+            // this.passArticleIdUp()
         })
     }
   

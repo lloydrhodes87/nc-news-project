@@ -14,6 +14,7 @@ class AddArticle extends Component {
     render() {
         const { user } = this.props;
         const { topics } = this.state;
+        
          return <div>
             <form onSubmit={this.handleSubmit}>
               <label htmlFor="title">Article Title:</label>
@@ -45,29 +46,40 @@ class AddArticle extends Component {
     }
     handleSubmit = (event) => {
       event.preventDefault();
-      const { topic } = this.state
+      const { title, username, body, topic } = this.state
       const { fetchNewArticle } = this.props;
+    
 
-      console.log(topic)
-      let axiosConfig = {
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          "Access-Control-Allow-Origin": "*",
-        }
-      };
-      axios.post(`https://lloyd-news.herokuapp.com/api/topics/${topic}/articles`, this.state, axiosConfig)
+      const object = {
+        username: username,
+        body: body,
+        title: title
+      }
+      // let axiosConfig = {
+      //   headers: {
+      //     'Content-Type': 'application/json;charset=UTF-8',
+      //     "Access-Control-Allow-Origin": "*",
+      //   }
+      // };
+      axios.post(`https://lloyd-news.herokuapp.com/api/topics/${topic}/articles`, object)
         .then(({data}) => {
-          const article = data.article  
+          console.log(data)
+          let article = data.article 
+           article = {...article, author: article.username}
+           delete article.username
           fetchNewArticle(article)
+        })
+        .then(() => {
+          this.setState({
+            username: '',
+            body: '',
+            title: ''
+          })
         })
         .catch((err) => {
           console.log("AXIOS ERROR: ", err);
         })
-      this.setState({
-        username: '',
-        body: '',
-        topic: ''
-      })
+      
     }
     setTopicArray = () => {
       api.fetchTopics()

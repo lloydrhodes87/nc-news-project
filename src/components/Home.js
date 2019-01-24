@@ -4,6 +4,7 @@ import Trending from './Trending';
 import React from 'react';
 
 const Home = () => {
+    
     return (
         <div>
             <RecentArticles />

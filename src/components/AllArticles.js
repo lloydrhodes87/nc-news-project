@@ -84,9 +84,6 @@ class AllArticles extends Component {
     if (prevState.articleid === '') {
       this.setState({ articleid: this.props.location.state.articleid });
     }
-    if (articleDelete) {
-      this.handleDeleteArticleState();
-    }
   };
 
   componentWillUnmount = () => {
@@ -110,6 +107,7 @@ class AllArticles extends Component {
 
   handleFetchArticles = () => {
     const { page, value } = this.state;
+    console.log(value,'<--- value')
     const { slug } = this.props;
     api
       .fetchArticles(slug, value, page)
@@ -145,9 +143,11 @@ class AllArticles extends Component {
     });
   };
   fetchNewAticle = article => {
+    console.log(article, 'article here')
     this.setState(prevState => ({
+      
       articles: [article, ...prevState.articles]
-    }));
+    }), ()=>console.log(this.state, 'NEW ARTICLE LIST'));
   };
   resetToFirstPage = () => {
     this.setState({
@@ -156,15 +156,6 @@ class AllArticles extends Component {
     });
   };
 
-  handleDeleteArticleState = () => {
-    const  {articleid} = this.state; 
-      this.setState((prevState) => ({
-        articles: prevState.articles.filter(
-          (article) => {
-            return article.article_id !== Number(articleid)
-          })
-      }))
-  };
 }
 
 export default AllArticles;

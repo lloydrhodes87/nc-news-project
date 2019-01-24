@@ -1,3 +1,5 @@
+import Home from './Home';
+
 import React, { Component } from 'react';
 
 class Login extends Component {
@@ -10,6 +12,8 @@ class Login extends Component {
     return user ? (
       <div>{this.props.children}</div>
     ) : (
+
+      <div>
       <form onSubmit={this.handleSubmit} method="POST" className="sign-in">
         <label htmlFor="username">username</label>
         <input
@@ -20,7 +24,9 @@ class Login extends Component {
           required
         />
         <button type="submit">Sign in</button>
+        <Home />
       </form>
+      </div>
     );
   }
   handleChange = e => {

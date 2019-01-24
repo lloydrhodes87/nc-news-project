@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+import '../src/Styles/users.css';
+import '../src/Styles/navbar.css';
+import '../src/Styles/logout.css';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import { Router } from '@reach/router'
@@ -25,16 +28,19 @@ class App extends Component {
   };
   render() {
     return <div className="App">
-        <Logout logout={this.handleLogOut} />
-        {this.state.loggedIn && <LoggedIn user={this.state.user} />}
+        <div className="loggedTopArea">
+          <Logout logout={this.handleLogOut} />
+          {this.state.loggedIn && <LoggedIn user={this.state.user} />}
+          {console.log(this.state.loggedIn, 'am i logged in on ount')}
+        </div>
+
         <Header />
         <Navbar />
-        
+
         <Login login={this.login} user={this.state.user}>
-        
           <Router>
             <Home path="/" />
-            <AllArticles path="/articles" user={this.state.user}  />
+            <AllArticles path="/articles" user={this.state.user} />
 
             <Article path="/articles/:articleid" user={this.state.user} getArticleId={this.getArticleId} />
 
@@ -44,17 +50,17 @@ class App extends Component {
             <Users path="/users" />
             <User path="/users/user" />
           </Router>
-       
         </Login>
-      
       </div>;
   }
   
   componentDidMount = () => {
-    const stored = sessionStorage.getItem('user');
-    const user = JSON.parse(stored);
+    const stored = localStorage.getItem('user');
+    console.log(stored, 'stored state')
+    const {user, loggedIn} = JSON.parse(stored);
     this.setState({
-      user
+      user,
+      loggedIn
     })
     
   }
@@ -66,14 +72,18 @@ class App extends Component {
       this.setState((prevState) => ({
         user,
         loggedIn: true
-      }))
-        sessionStorage.setItem('user', JSON.stringify(user))
+      }), () => {
+        console.log(this.state)
+        const state = this.state
+          localStorage.setItem('user', JSON.stringify(state))
+      })
+        
       
     }
       
     )}
   handleLogOut = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     this.setState({
       user: '',
       loggedIn: false
