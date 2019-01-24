@@ -12,6 +12,8 @@ import User from './components/User';
 import Login from './components/Login';
 import * as api from './Utils/fetchData';
 import Logout from './components/Logout';
+import RecentArticles from './components/RecentArticles';
+import Trending from './components/Trending';
 
 
 
@@ -25,7 +27,7 @@ class App extends Component {
         <Logout logout={this.handleLogOut} />
         <Header />
         <Navbar />
-
+        
         <Login login={this.login} user={this.state.user}>
           <Router>
             <Home path="/" />
@@ -40,6 +42,8 @@ class App extends Component {
             <User path="/users/user" />
           </Router>
         </Login>
+      <RecentArticles />
+      <Trending />
       </div>;
   }
   

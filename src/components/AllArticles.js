@@ -114,6 +114,7 @@ class AllArticles extends Component {
     api
       .fetchArticles(slug, value, page)
       .then(newArticles => {
+   
         this.setState(({ articles }) => ({
           articles: page === 1 ? newArticles : [...articles, ...newArticles],
           isLoading: false

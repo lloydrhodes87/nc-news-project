@@ -50,3 +50,8 @@ export const fetchArticles = async (slug, sort_by='created_at', p=1) => {
     const { data } = await axios.get(request);
     return data.articles;
 }
+
+export const fetchMostRecentArticles = async (sort_by) => {
+    const { data } = await axios.get(`${BASE_URL}/articles?limit=3&sort_by=${sort_by}`)
+    return data.articles
+}
