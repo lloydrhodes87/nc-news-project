@@ -11,13 +11,16 @@ class Topics extends Component {
         return (
             
                 <div>
-                    <h1>Topics</h1>
-                    <form onSubmit={this.onSubmit}>
-                        <label htmlFor="slug">Slug</label>
-                        <input type="text" value={this.state.slug} onChange={this.handleChange} id="slug"></input>
-                        <label htmlFor="description">Description</label>
-                        <input type="text" value={this.state.description} onChange={this.handleChange} id="description"></input>
-                        <button type="submit">Add Topic</button>
+                <form onSubmit={this.onSubmit} className="postTopicContainer">
+                        <div className="postTopicTop">
+                            <label htmlFor="slug"></label>
+                            <input type="text" value={this.state.slug} onChange={this.handleChange} id="slug" placeholder="Topic"></input>
+                            <button type="submit">Add Topic</button>
+                        </div>
+                        
+                        <label htmlFor="description"></label>
+                        <textarea type="text" value={this.state.description} onChange={this.handleChange} placeholder="Description" id="description"></textarea>
+                        
                     </form>
                     
                 </div>

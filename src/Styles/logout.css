@@ -4,7 +4,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
 }
 
 .loggedInContainer {
@@ -23,4 +22,19 @@
 
 .avatar {
     height: 4rem;
+}
+
+.logout > button {
+    padding: 1rem 2rem;
+    background-color:#65C8FF;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    transition: 1s;
+    outline: none;
+    cursor: pointer;
+}
+
+.logout > button:hover {
+    transform: scale(1.1);
 }

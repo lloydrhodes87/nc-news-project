@@ -15,16 +15,12 @@ export const fetchComments = async (id, sort_by = 'created_at', p = 1, limit=10)
 }
 
 export const deleteData = async (articleid, commentid) => {
-    console.log('deleting....')
-    console.log(articleid, commentid)
     const url = commentid ? 
         `https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments/${commentid}` :
         `https://lloyd-news.herokuapp.com/api/articles/${articleid}`;
-    console.log(url)
+ 
     await axios.delete(url)
-    .then(() => {
-        console.log('getting to delewted');
-    }).catch(console.log)
+    
     
     
    
@@ -43,12 +39,9 @@ export const fetchUser = async(user) => {
 
 
 export const fetchArticles = async (slug, sort_by='created_at', p=1) => {
-    console.log('here')
-    console.log(sort_by)
     const request = slug ? 
         `${BASE_URL}/topics/${slug}/articles?sort_by=${sort_by}&p=${p}` :
         `${BASE_URL}/articles?sort_by=${sort_by}&p=${p}`;
-    console.log(request)
     const { data } = await axios.get(request);
     return data.articles;
 }
@@ -60,6 +53,5 @@ export const fetchMostRecentArticles = async (sort_by) => {
 
 export const fetchAllUsers = async () => {
     const { data } = await axios.get(`${BASE_URL}/users`)
-    console.log(data.users, 'inside fetch')
     return data.users
 }

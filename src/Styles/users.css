@@ -10,11 +10,15 @@
 }
 
 .userContainer {
-   margin-top: 3rem;
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
    justify-content: space-evenly;
+}
+
+.userContainer {
+    padding: 0;
+    margin-top: 3rem;
 }
 
 .userContainer > li {
@@ -50,13 +54,7 @@
     transform: scale(1.1)
 }
 
-.logout > button {
-    padding: 1rem 2rem;
-    background-color:#65C8FF;
-    border: 1px solid white;
-    border-radius: 5px;
-    color: white;
-}
+
 
 
 

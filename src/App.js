@@ -3,6 +3,8 @@ import './App.css';
 import '../src/Styles/users.css';
 import '../src/Styles/navbar.css';
 import '../src/Styles/logout.css';
+import '../src/Styles/topicsTop.css';
+import '../src/Styles/topicMain.css';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import { Router } from '@reach/router'

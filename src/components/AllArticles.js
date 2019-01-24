@@ -14,8 +14,8 @@ class AllArticles extends Component {
     value: '',
     search: '',
     page: 1,
-    hasAllArticles: false,
-    articleid: ''
+    hasAllArticles: false
+   
   };
   render() {
     const { isLoading } = this.state;
@@ -71,9 +71,8 @@ class AllArticles extends Component {
     
     const pageUpdate = prevState.page !== this.state.page;
     const topicUpdate = prevProps.slug !== this.props.slug;
-    const articleDelete = prevState.articleid !== this.state.articleid;
     if (prevState.value !== this.state.value && this.state.value !== '') {
-      this.handleFetchArticles();
+          this.resetToFirstPage();         
     }
     if (pageUpdate && !this.state.hasAllArticles) {
       this.handleFetchArticles();
@@ -81,16 +80,10 @@ class AllArticles extends Component {
     if (topicUpdate) {
       this.resetToFirstPage();
     }
-    if (prevState.articleid === '') {
-      this.setState({ articleid: this.props.location.state.articleid });
-    }
+
   };
 
-  componentWillUnmount = () => {
-    this.setState({
-      articleid: undefined
-    })
-  }
+ 
 
   handleScroll = throttle(() => {
     const distanceFromTop = window.scrollY;
@@ -98,7 +91,6 @@ class AllArticles extends Component {
     const fullDocumentHeight = document.body.scrollHeight;
 
     if (distanceFromTop + heightOfScreen > fullDocumentHeight - 100) {
-      console.log('here');
       this.setState(({ page }) => ({
         page: page + 1
       }));
@@ -107,12 +99,12 @@ class AllArticles extends Component {
 
   handleFetchArticles = () => {
     const { page, value } = this.state;
-    console.log(value,'<--- value')
+    console.log(value, page,'<--- value & page')
     const { slug } = this.props;
     api
       .fetchArticles(slug, value, page)
       .then(newArticles => {
-   
+        console.log(newArticles)
         this.setState(({ articles }) => ({
           articles: page === 1 ? newArticles : [...articles, ...newArticles],
           isLoading: false
@@ -153,7 +145,7 @@ class AllArticles extends Component {
     this.setState({
       page: 1,
       hasAllArticles: false
-    });
+    }, this.handleFetchArticles);
   };
 
 }
