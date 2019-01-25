@@ -8,13 +8,14 @@ class Login extends Component {
   };
   render() {
     const { user } = this.props;
-
+    console.log('in login', user)
     return user ? (
       <div>{this.props.children}</div>
     ) : (
 
       <div>
       <form onSubmit={this.handleSubmit} method="POST" className="sign-in">
+      {console.log('main section')}
         <label htmlFor="username">username</label>
         <input
           type="text"
@@ -24,12 +25,14 @@ class Login extends Component {
           required
         />
         <button type="submit">Sign in</button>
-        <Home />
+        <Home users={this.props.users}/>
+            {console.log('main section, later')}
       </form>
       </div>
     );
   }
   handleChange = e => {
+    console.log(e.target.value, 'handle change in login')
     const { value, id } = e.target;
     this.setState({
       [id]: value

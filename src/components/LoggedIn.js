@@ -1,6 +1,7 @@
 import React from 'react';
 
 const LoggedIn = (props) => {
+
     const { username, avatar_url } = props.user
     return (
         <div className="loggedInContainer">

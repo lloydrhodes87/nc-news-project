@@ -9,6 +9,7 @@ import '../src/Styles/articles.css';
 import '../src/Styles/article.css';
 import '../src/Styles/comments.css';
 import '../src/Styles/newComment.css';
+import '../src/Styles/home.css';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import { Router } from '@reach/router'
@@ -43,9 +44,9 @@ class App extends Component {
         <Header />
         <Navbar />
 
-        <Login login={this.login} user={this.state.user}>
+      <Login login={this.login} user={this.state.user} users={this.state.users}>
           <Router>
-            <Home path="/" />
+          <Home path="/" users={this.state.users}/>
             <AllArticles path="/articles" user={this.state.user} users={this.state.users} />
 
           <Article path="/articles/:articleid" user={this.state.user} getArticleId={this.getArticleId} users={this.state.users} />
@@ -61,20 +62,23 @@ class App extends Component {
   }
   
   componentDidMount = () => {
+    console.log('component mounted')
     this.fetchUsers();
     const stored = localStorage.getItem('user');
+    if (stored) {
     const {user, loggedIn} = JSON.parse(stored);
     this.setState({
       user,
       loggedIn
     })
+  }
     
   }
   
   login = user => {
+    console.log(user, 'user in app js')
     api.fetchUser(user)
     .then(user => {
-      
       this.setState((prevState) => ({
         user,
         loggedIn: true
@@ -96,12 +100,13 @@ class App extends Component {
   };
 
   fetchUsers = () => {
+    console.log('fetching users');
     api.fetchAllUsers().then(users => {
-      console.log(users)
+      console.log(users, 'users after call')
       this.setState(() => ({
         users: users
       }));
-    }, console.log(this.state, 'setting state'));
+    }, console.log(this.state, 'setting state after user call'));
   };
   
 
