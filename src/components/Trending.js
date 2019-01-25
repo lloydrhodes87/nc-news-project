@@ -21,7 +21,8 @@ class Trending extends Component {
     const { users } = this.props;
 
     if (hasError) return <Err error={error} />;
-    if (isLoading) return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
+    if (isLoading)
+      return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
       <div className="trendingContainer">
         <h3>Trending Now</h3>

@@ -14,7 +14,7 @@ import '../src/Styles/home.css';
 import '../src/Styles/login.css';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
-import { Router } from '@reach/router'
+import { Router } from '@reach/router';
 import AllArticles from './components/AllArticles';
 import Article from './components/Article';
 import AllTopics from './components/AllTopics';
@@ -26,9 +26,6 @@ import Logout from './components/Logout';
 import LoggedIn from './components/LoggedIn';
 import Loader from './components/Loader';
 
-
-
-
 class App extends Component {
   state = {
     article_id: '',
@@ -39,7 +36,8 @@ class App extends Component {
   };
   render() {
     const { loggedIn, isLoading, user, users } = this.state;
-    if (isLoading) return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
+    if (isLoading)
+      return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
       <div className="App">
         <div className="loggedTopArea">
@@ -50,18 +48,10 @@ class App extends Component {
         <Header />
         <Navbar />
 
-        <Login
-          login={this.login}
-          user={user}
-          users={users}
-        >
+        <Login login={this.login} user={user} users={users}>
           <Router>
             <Home path="/" users={users} />
-            <AllArticles
-              path="/articles"
-              user={user}
-              users={users}
-            />
+            <AllArticles path="/articles" user={user} users={users} />
 
             <Article
               path="/articles/:articleid"
@@ -71,11 +61,7 @@ class App extends Component {
             />
 
             <AllTopics path="/topics" />
-            <AllArticles
-              path="/topics/:slug"
-              user={user}
-              users={users}
-            />
+            <AllArticles path="/topics/:slug" user={user} users={users} />
 
             <Users path="/users" />
           </Router>
@@ -126,6 +112,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-

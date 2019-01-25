@@ -6,7 +6,6 @@ import formatDate from '../Utils/utilFunctions';
 import AddArticle from './AddArticle';
 import throttle from 'lodash.throttle';
 
-
 class AllArticles extends Component {
   _isMounted = false;
   state = {
@@ -29,10 +28,7 @@ class AllArticles extends Component {
       <div>
         <h2 className="articleHeading">Articles</h2>
         <div className="articleList">
-          <AddArticle
-            fetchNewArticle={this.fetchNewAticle}
-            user={user}
-          />
+          <AddArticle fetchNewArticle={this.fetchNewAticle} user={user} />
           <form onSubmit={this.handleSubmit}>
             <p id="sortLabel">Sort</p>
             <div className="categories" id="sortbySelect">
@@ -49,9 +45,7 @@ class AllArticles extends Component {
           </form>
 
           {articles.map(({ article_id, title, topic, author, created_at }) => {
-            const userObject = users.filter(
-              user => user.username === author
-            );
+            const userObject = users.filter(user => user.username === author);
             return (
               <li key={article_id}>
                 <h3 className="articleTitle">{title}</h3>
@@ -86,7 +80,7 @@ class AllArticles extends Component {
   };
 
   componentDidUpdate = (prevProps, prevState) => {
-    const { page, value, hasAllArticles } = this.state; 
+    const { page, value, hasAllArticles } = this.state;
     const { slug } = this.props;
     const pageUpdate = prevState.page !== page;
     const topicUpdate = prevProps.slug !== slug;
@@ -111,7 +105,8 @@ class AllArticles extends Component {
     const fullDocumentHeight = document.body.scrollHeight;
 
     if (distanceFromTop + heightOfScreen > fullDocumentHeight - 100) {
-      if (this._isMounted) this.setState(({ page }) => ({
+      if (this._isMounted)
+        this.setState(({ page }) => ({
           page: page + 1
         }));
     }
@@ -153,11 +148,9 @@ class AllArticles extends Component {
     });
   };
   fetchNewAticle = article => {
-    this.setState(
-      prevState => ({
-        articles: [article, ...prevState.articles]
-      })
-    );
+    this.setState(prevState => ({
+      articles: [article, ...prevState.articles]
+    }));
   };
   resetToFirstPage = () => {
     this.setState(

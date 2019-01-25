@@ -1,56 +1,53 @@
 .individualArticle {
-    width: 70%;
-    margin: 0 auto;
-    background-color: #65C8FF;
-    border: 2px solid white;
-    border-radius: 10px;
-    margin-top: 5rem;
+  width: 70%;
+  margin: 0 auto;
+  background-color: #65c8ff;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin-top: 5rem;
 }
 
 .individualArticle > p {
-    color: white;
-    font-size: 1.5rem;
-    line-height: 2.5rem;
+  color: white;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
 }
 
-
 .thumb {
-    width: 4rem;
-    height: auto;
-    padding: 0;   
+  width: 4rem;
+  height: auto;
+  padding: 0;
 }
 
 .voteButton {
-    border: none;
-    padding: 1rem;
-    margin-bottom: 2rem;
+  border: none;
+  padding: 1rem;
+  margin-bottom: 2rem;
 }
 
 .singleArticleP {
-    font-size: 1.5rem;
-    padding:  2rem 10rem;
+  font-size: 1.5rem;
+  padding: 2rem 10rem;
 }
 
 .singleArticleTitle {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 .votes {
-    color: white;
-    font-size: 1.2rem;
+  color: white;
+  font-size: 1.2rem;
 }
 
 .commentNavigation {
-    margin: 3rem 0;
+  margin: 3rem 0;
 }
 
 #link {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .commentNavigation > button {
-    margin: 0.5rem;
+  margin: 0.5rem;
 }
-
-

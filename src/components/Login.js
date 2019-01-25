@@ -4,7 +4,6 @@ import { Router } from '@reach/router';
 import Users from './Users';
 import NotLogged from './NotLogged';
 
-
 class Login extends Component {
   state = {
     username: ''
@@ -12,10 +11,21 @@ class Login extends Component {
   render() {
     const { user, children, users } = this.props;
     const { username } = this.state;
-    return user ? <div>{children}</div> : <div>
+    return user ? (
+      <div>{children}</div>
+    ) : (
+      <div>
         <form onSubmit={this.handleSubmit} method="POST" className="sign-in">
-          <label id="usernameLogin" htmlFor="username">username</label>
-          <input type="text" id="username" onChange={this.handleChange} value={username} required />
+          <label id="usernameLogin" htmlFor="username">
+            username
+          </label>
+          <input
+            type="text"
+            id="username"
+            onChange={this.handleChange}
+            value={username}
+            required
+          />
           <button type="submit">Sign in</button>
         </form>
         <Router>
@@ -24,7 +34,8 @@ class Login extends Component {
           <NotLogged path="/topics/*" />
           <Users path="/users" />
         </Router>
-      </div>;
+      </div>
+    );
   }
   handleChange = e => {
     const { value, id } = e.target;
@@ -40,8 +51,6 @@ class Login extends Component {
       username: ''
     });
   };
-  
 }
 
 export default Login;
-

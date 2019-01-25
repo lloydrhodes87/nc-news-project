@@ -19,7 +19,6 @@ class AddArticle extends Component {
 
     const { hasError, error } = this.state;
     if (hasError) return <Err error={error} />;
-  
 
     return (
       <div>
@@ -124,25 +123,20 @@ class AddArticle extends Component {
       });
   };
   setTopicArray = () => {
-    api.fetchTopics().then(topics => {
-      this.setState({
-        topics
-      });
-    })
-    .catch(err => {
+    api
+      .fetchTopics()
+      .then(topics => {
+        this.setState({
+          topics
+        });
+      })
+      .catch(err => {
         this.setState({
           hasError: true,
           error: err
         });
-    })
+      });
   };
 }
-
-
-
-
-
-
-
 
 export default AddArticle;

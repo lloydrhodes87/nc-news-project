@@ -1,44 +1,44 @@
 .loggedTopArea {
-    background-color: #65C8FF;
-    padding: 1rem 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  background-color: #65c8ff;
+  padding: 1rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .loggedInContainer {
-    display: flex;
-    flex-direction: row;
-    padding: 0 2rem;
-    margin: 0;
+  display: flex;
+  flex-direction: row;
+  padding: 0 2rem;
+  margin: 0;
 }
 
-.loggedInContainer > P {
-    color: white;
-    font-size: 1.3rem;
-    margin-right: 1rem;
-    font-weight: 500;
+.loggedInContainer > p {
+  color: white;
+  font-size: 1.3rem;
+  margin-right: 1rem;
+  font-weight: 500;
 }
 
 .avatar {
-    height: 4rem;
+  height: 4rem;
 }
 
 button {
-    padding: 1rem 2rem;
-    background-color:#65C8FF;
-    border: 1px solid white;
-    border-radius: 5px;
-    color: white;
-    transition: 1s;
-    outline: none;
-    cursor: pointer;
+  padding: 1rem 2rem;
+  background-color: #65c8ff;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  transition: 1s;
+  outline: none;
+  cursor: pointer;
 }
 
 button:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .link {
-    color: white;
+  color: white;
 }

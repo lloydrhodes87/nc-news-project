@@ -6,7 +6,6 @@ import * as api from '../Utils/fetchData';
 import throttle from 'lodash.throttle';
 import Err from './Err';
 
-
 class Comments extends Component {
   _isMounted = false;
   state = {
@@ -138,5 +137,3 @@ class Comments extends Component {
 }
 
 export default Comments;
-
-

@@ -1,11 +1,9 @@
-
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
 import * as api from '../Utils/fetchData';
 import Loader from './Loader';
 import Topics from './Topics';
 import Err from './Err';
-
 
 class AllTopics extends Component {
   state = {
