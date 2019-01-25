@@ -20,8 +20,8 @@ class Login extends Component {
         </form>
         <Router>
           <Home path="/" users={users} />
-          <NotLogged path="/articles" />
-          <NotLogged path="/topics" />
+          <NotLogged path="/articles/*" />
+          <NotLogged path="/topics/*" />
           <Users path="/users" />
         </Router>
       </div>;
