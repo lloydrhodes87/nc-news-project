@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Err from './Err';
 
 class AddComment extends Component {
   state = {
     body: '',
+    hasError: false,
+    error: ''
   };
   
   render() {
     const { user } = this.props;
     const { body } = this.state;
+
+    const { hasError, error } = this.state
+    if (hasError) return <Err error={error} />
     
     return (
       <div>
@@ -56,7 +62,10 @@ class AddComment extends Component {
         this.props.getComment(comment);
       })     
       .catch(err => {
-        console.log('AXIOS ERROR: ', err);
+        this.setState({
+          hasError: true,
+          error: err
+        })
       });
 
 

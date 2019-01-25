@@ -154,8 +154,7 @@ class AllArticles extends Component {
     this.setState(
       prevState => ({
         articles: [article, ...prevState.articles]
-      }),
-      () => console.log(this.state, 'NEW ARTICLE LIST')
+      })
     );
   };
   resetToFirstPage = () => {

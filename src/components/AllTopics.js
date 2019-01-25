@@ -52,10 +52,7 @@ class AllTopics extends Component {
 
 
   getTopic = (topic) => {
-    console.log(topic, 'in all topics');
-    console.log(this.state.topics)
     this.setState(prevState => {
-      
       return { topics: [topic, ...prevState.topics] };
     })
   }
