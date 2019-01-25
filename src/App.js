@@ -18,7 +18,6 @@ import Article from './components/Article';
 import AllTopics from './components/AllTopics';
 import Users from './components/Users';
 import Home from './components/Home';
-import User from './components/User';
 import Login from './components/Login';
 import * as api from './Utils/fetchData';
 import Logout from './components/Logout';
@@ -44,18 +43,17 @@ class App extends Component {
         <Header />
         <Navbar />
 
-      <Login login={this.login} user={this.state.user} users={this.state.users}>
+        <Login login={this.login} user={this.state.user} users={this.state.users}>
           <Router>
-          <Home path="/" users={this.state.users}/>
+            <Home path="/" users={this.state.users} />
             <AllArticles path="/articles" user={this.state.user} users={this.state.users} />
 
-          <Article path="/articles/:articleid" user={this.state.user} getArticleId={this.getArticleId} users={this.state.users} />
+            <Article path="/articles/:articleid" user={this.state.user} getArticleId={this.getArticleId} users={this.state.users} />
 
             <AllTopics path="/topics" />
-          <AllArticles path="/topics/:slug" user={this.state.user} users={this.state.users}  />
+            <AllArticles path="/topics/:slug" user={this.state.user} users={this.state.users} />
 
             <Users path="/users" />
-            <User path="/users/user" />
           </Router>
         </Login>
       </div>;
