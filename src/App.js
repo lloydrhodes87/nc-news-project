@@ -11,6 +11,7 @@ import '../src/Styles/comments.css';
 import '../src/Styles/newComment.css';
 import '../src/Styles/err.css';
 import '../src/Styles/home.css';
+import '../src/Styles/login.css';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import { Router } from '@reach/router'
@@ -44,7 +45,7 @@ class App extends Component {
 
         <Header />
         <Navbar />
-
+        
         <Login login={this.login} user={this.state.user} users={this.state.users}>
           <Router>
             <Home path="/" users={this.state.users} />

@@ -2,6 +2,7 @@ import Home from './Home';
 import React, { Component } from 'react';
 import { Router } from '@reach/router';
 import Users from './Users';
+import NotLogged from './NotLogged';
 
 
 class Login extends Component {
@@ -13,12 +14,14 @@ class Login extends Component {
     const { username } = this.state;
     return user ? <div>{children}</div> : <div>
         <form onSubmit={this.handleSubmit} method="POST" className="sign-in">
-          <label htmlFor="username">username</label>
+          <label id="usernameLogin" htmlFor="username">username</label>
           <input type="text" id="username" onChange={this.handleChange} value={username} required />
           <button type="submit">Sign in</button>
         </form>
         <Router>
           <Home path="/" users={users} />
+          <NotLogged path="/articles" />
+          <NotLogged path="/topics" />
           <Users path="/users" />
         </Router>
       </div>;

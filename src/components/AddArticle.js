@@ -19,6 +19,7 @@ class AddArticle extends Component {
 
     const { hasError, error } = this.state;
     if (hasError) return <Err error={error} />;
+  
 
     return (
       <div>

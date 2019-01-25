@@ -18,18 +18,7 @@ li {
   list-style: none;
 }
 
-.sign-in {
-  text-align: right;
-  padding: 2rem;
-  color: white;
-  font-size: 1.2rem;
-}
 
-.sign-in > input {
-  margin: 2px;
-  border-radius: 5px;
-  outline: none;
-}
 
 .header {
   font-size: 3rem;
@@ -59,6 +48,20 @@ h1 {
 .avatarInArticles {
   width: 10rem;
   height: auto;
+}
+
+.headingNotLogged1,
+.headingNotLogged2 {
+    font-weight: 300;
+    font-size: 2rem;
+    color: rgba(110, 110, 110, 0.747);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.headingNotLogged1 {
+  border-bottom: 1px solid rgb(187, 187, 187);
+  padding-bottom: 2rem;
 }
 
 button:disabled {
