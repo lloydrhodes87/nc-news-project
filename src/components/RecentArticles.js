@@ -20,7 +20,6 @@ class RecentArticles extends Component {
           <div className="homeContainer">
           {articles.map(({ article_id, title, topic, author, created_at }) => {
             const userObject = this.props.users.filter(user => user.username === author);
-            console.log(userObject)
             return <li key={article_id}>
                 <p className="articleTitle">{title}</p>
                 <p className="articleP">Topic: {topic}</p>

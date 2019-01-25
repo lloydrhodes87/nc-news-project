@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Err from './Err';
 
 
 class Topics extends Component {
     state = { 
         slug: '',
         description: '', 
+        hasError: false,
+        error: ''
     }
     render() {
+        const { hasError, error } = this.state
+                if (hasError) return <Err error={error} message="Topic added must be a new one!"/>
         return (
-            
+
                 <div>
                 <form onSubmit={this.onSubmit} className="postTopicContainer">
                         <div className="postTopicTop">
@@ -50,6 +55,13 @@ class Topics extends Component {
         await axios.post(`https://lloyd-news.herokuapp.com/api/topics`, topic)
         .then(({data}) => {
             this.props.getTopic(data.topic)
+        })
+        .catch(err => {
+            console.log('should be a 422')
+            this.setState({
+                hasError: true,
+                error: err
+            })
         })
         
     }

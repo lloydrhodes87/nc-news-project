@@ -53,7 +53,6 @@ export const fetchMostRecentArticles = async (sort_by) => {
 
 export const fetchAllUsers = async () => {
     const { data } = await axios.get(`${BASE_URL}/users`)
-    console.log(data, '>>>>>>>')
     return data.users
 }
 

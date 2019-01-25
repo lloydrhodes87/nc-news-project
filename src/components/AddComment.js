@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class AddComment extends Component {
   state = {
@@ -7,6 +8,7 @@ class AddComment extends Component {
   
   render() {
     const { user } = this.props;
+    const { body } = this.state;
     
     return (
       <div>
@@ -15,7 +17,7 @@ class AddComment extends Component {
           <p>commenting as:{user.username} </p>
           <div className="addCommentButton">
             <label htmlFor="body"></label>
-            <textarea type="text" id="body" onChange={this.handleChange} value={this.state.body} />
+            <textarea type="text" id="body" onChange={this.handleChange} value={body} />
             <button type="submit">Add Comment</button>
           </div>        
         </form>
@@ -39,25 +41,26 @@ class AddComment extends Component {
     };
 
   addComment = () => {
+
     const { articleid } = this.props;
-    console.log(this.props.user.username)
-    return fetch(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        body: this.state.body,
-        username: this.props.user.username
-      })
-    }).then(res => res.json())
-    .then(({comment}) => {
-      this.props.getComment(comment)
-    })
+    const object = {
+      username: this.props.user.username,
+      body: this.state.body
+    }
+    axios
+      .post(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments`, object)
+      .then(({ data }) => {
+        let comment = data.comment;
+        comment = { ...comment, author: this.props.user.username };
+        delete comment.username;
+        this.props.getComment(comment);
+      })     
+      .catch(err => {
+        console.log('AXIOS ERROR: ', err);
+      });
 
 
-  }
+    }
     
 }
 

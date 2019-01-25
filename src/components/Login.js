@@ -9,23 +9,21 @@ class Login extends Component {
     username: ''
   };
   render() {
-    const { user } = this.props;
-    console.log('in login', user)
-    return user ? <div>{this.props.children}</div> : <div>
+    const { user, children, users } = this.props;
+    const { username } = this.state;
+    return user ? <div>{children}</div> : <div>
         <form onSubmit={this.handleSubmit} method="POST" className="sign-in">
-          {console.log('main section')}
           <label htmlFor="username">username</label>
-          <input type="text" id="username" onChange={this.handleChange} value={this.state.username} required />
+          <input type="text" id="username" onChange={this.handleChange} value={username} required />
           <button type="submit">Sign in</button>
         </form>
         <Router>
-          <Home path="/" users={this.props.users} />
+          <Home path="/" users={users} />
           <Users path="/users" />
         </Router>
       </div>;
   }
   handleChange = e => {
-    console.log(e.target.value, 'handle change in login')
     const { value, id } = e.target;
     this.setState({
       [id]: value

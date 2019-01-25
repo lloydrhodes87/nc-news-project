@@ -52,13 +52,9 @@ class AddArticle extends Component {
     }
 
     handleChange = (event) => {
-      console.log(event, 'handle change')
       const { id, value } = event.target;
-      console.log(id, value)
       this.setState({
         [id]: value
-      }, () => {
-        console.log(this.state, 'this is the state after change')
       })
     }
     handleSubmit = (event) => {
@@ -72,12 +68,7 @@ class AddArticle extends Component {
         body: body,
         title: title
       }
-      // let axiosConfig = {
-      //   headers: {
-      //     'Content-Type': 'application/json;charset=UTF-8',
-      //     "Access-Control-Allow-Origin": "*",
-      //   }
-      // };
+  
       axios.post(`https://lloyd-news.herokuapp.com/api/topics/${topic}/articles`, object)
         .then(({data}) => {
           console.log(data)

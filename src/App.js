@@ -9,6 +9,7 @@ import '../src/Styles/articles.css';
 import '../src/Styles/article.css';
 import '../src/Styles/comments.css';
 import '../src/Styles/newComment.css';
+import '../src/Styles/err.css';
 import '../src/Styles/home.css';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
@@ -34,10 +35,11 @@ class App extends Component {
     users: []
   };
   render() {
+    const { loggedIn } = this.state;
     return <div className="App">
         <div className="loggedTopArea">
-          <Logout logout={this.handleLogOut} />
-          {this.state.loggedIn && <LoggedIn user={this.state.user} />}
+          <Logout logout={this.handleLogOut} loggedIn={loggedIn} />
+          {loggedIn && <LoggedIn user={this.state.user} />}
         </div>
 
         <Header />
@@ -60,7 +62,6 @@ class App extends Component {
   }
   
   componentDidMount = () => {
-    console.log('component mounted')
     this.fetchUsers();
     const stored = localStorage.getItem('user');
     if (stored) {
@@ -74,7 +75,6 @@ class App extends Component {
   }
   
   login = user => {
-    console.log(user, 'user in app js')
     api.fetchUser(user)
     .then(user => {
       this.setState((prevState) => ({
@@ -98,13 +98,11 @@ class App extends Component {
   };
 
   fetchUsers = () => {
-    console.log('fetching users');
     api.fetchAllUsers().then(users => {
-      console.log(users, 'users after call')
       this.setState(() => ({
         users: users
       }));
-    }, console.log(this.state, 'setting state after user call'));
+    });
   };
   
 

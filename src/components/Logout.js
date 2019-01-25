@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from '@reach/router'; 
 
 class Logout extends Component {
     render() {
+        const { loggedIn, logout } = this.props;
         return (
             <div className="logout">
-                <button type='submit' onClick={this.props.logout}>Logout</button>
+                {loggedIn && <button><Link className="link" to="/" type='submit' onClick={logout}>Logout</Link></button>}
             </div>
         );
     }

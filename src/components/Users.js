@@ -30,7 +30,6 @@ class Users extends Component {
     );
   }
   componentDidMount = () => {
-    console.log('component mounted 1')
     this._isMounted = true;
     this.fetchUsers();
   };
