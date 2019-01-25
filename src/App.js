@@ -72,7 +72,7 @@ class App extends Component {
 
   componentDidMount = () => {
     this.fetchUsers();
-    const stored = localStorage.getItem('user');
+    const stored = sessionStorage.getItem('user');
     if (stored) {
       const { user, loggedIn } = JSON.parse(stored);
       this.setState({
@@ -91,13 +91,13 @@ class App extends Component {
         }),
         () => {
           const state = this.state;
-          localStorage.setItem('user', JSON.stringify(state));
+          sessionStorage.setItem('user', JSON.stringify(state));
         }
       );
     });
   };
   handleLogOut = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     this.setState({
       user: '',
       loggedIn: false
