@@ -1,68 +1,71 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## NC News - Northcoders front end project
 
-## Available Scripts
+This is the front end for NC News which is an article based database where users can access and submit articles and comments as well as make updates and deletions to data.
 
-In the project directory, you can run:
+### `Getting Started`
 
-### `npm start`
+This is a guide to help you clone the project and run it locally. 
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
-### `npm test`
+### `Prerequisites`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* React JS
 
-### `npm run build`
+### `Installing`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+First cd into the location that you want to store the file and run the following commands in your terminal.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+git clone https://github.com/lloydrhodes87/nc-news-project.git
+cd nc-news-project
+npm install
+```
 
-### `npm run eject`
+Then open the project in your prefered code editor and run the command 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This will run the development server on a local host and you can then view the project locally. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### `Deployment`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Deployed on - https://nc-news-frontend-lr.herokuapp.com/
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `Using the site`
 
-### Code Splitting
+When you follow the link you will reach the home page. Without logging in you only have access to the home page and the users page. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+You can then login in with any username from the users page. 
 
-### Analyzing the Bundle Size
+For quick reference here are the available usernames:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+* tickle122
+* grumpy19
+* happyamy2016
+* cooljmessy
+* weegembump
+* jessjelly
 
-### Making a Progressive Web App
+A logged in user can then add and delete their own articles and comments and vote on other users articles and comments. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## `Built With` 
 
-### Advanced Configuration
+React JS 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-### Deployment
+## `Authors`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+Lloyd Rhodes - https://github.com/lloydrhodes87/nc-news-project
 
-### `npm run build` fails to minify
+## `License`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This project is licensed under the MIT License - see the LICENSE.md file for details
+
+## `Acknowledgments`
+Thanks to all the staff at northcoders and all of the other students in my cohort.
