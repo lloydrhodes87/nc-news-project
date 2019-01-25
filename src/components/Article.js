@@ -19,14 +19,15 @@ class Article extends Component {
         
     }
     render() {
+        
         const { isLoading } = this.state;
-        const { hasError, error } = this.state;
+        const { hasError, error, comments, toggleComments } = this.state;
         if (hasError) return <Err error={error} />;
-        const { body, title, author, created_at, votes } = this.state.article
         if (isLoading) return <Loader />;
 
-        const {articleid, user } = this.props;
-        const userObject = this.props.users.filter(user => user.username === author)
+        const { body, title, author, created_at, votes } = this.state.article;
+        const {articleid, user, users} = this.props;
+        const userObject = users.filter(user => user.username === author)
         const { avatar_url } = userObject[0]
         
         return <div>
@@ -50,7 +51,7 @@ class Article extends Component {
                 <button onClick={this.handleToggleComments} type="submit">
                     comments
             </button>
-                {this.state.toggleComments && <Comments comments={this.state.comments} articleid={articleid} user={user} />}
+                {toggleComments && <Comments comments={comments} articleid={articleid} user={user} />}
             
             </div>
             

@@ -21,6 +21,7 @@ class AllArticles extends Component {
   render() {
     const { isLoading } = this.state;
     let { articles } = this.state;
+    const { user, users } = this.props;
 
     if (isLoading)
       return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
@@ -30,7 +31,7 @@ class AllArticles extends Component {
         <div className="articleList">
           <AddArticle
             fetchNewArticle={this.fetchNewAticle}
-            user={this.props.user}
+            user={user}
           />
           <form onSubmit={this.handleSubmit}>
             <p id="sortLabel">Sort</p>
@@ -48,7 +49,7 @@ class AllArticles extends Component {
           </form>
 
           {articles.map(({ article_id, title, topic, author, created_at }) => {
-            const userObject = this.props.users.filter(
+            const userObject = users.filter(
               user => user.username === author
             );
             return (
@@ -85,12 +86,14 @@ class AllArticles extends Component {
   };
 
   componentDidUpdate = (prevProps, prevState) => {
-    const pageUpdate = prevState.page !== this.state.page;
-    const topicUpdate = prevProps.slug !== this.props.slug;
-    if (prevState.value !== this.state.value && this.state.value !== '') {
+    const { page, value, hasAllArticles } = this.state; 
+    const { slug } = this.props;
+    const pageUpdate = prevState.page !== page;
+    const topicUpdate = prevProps.slug !== slug;
+    if (prevState.value !== value && value !== '') {
       this.resetToFirstPage();
     }
-    if (pageUpdate && !this.state.hasAllArticles) {
+    if (pageUpdate && !hasAllArticles) {
       this.handleFetchArticles();
     }
     if (topicUpdate) {

@@ -48,18 +48,19 @@ class AddComment extends Component {
 
   addComment = () => {
 
-    const { articleid } = this.props;
+    const { articleid, user, getComment } = this.props;
+    const { body } = this.state
     const object = {
-      username: this.props.user.username,
-      body: this.state.body
+      username: user.username,
+      body: body
     }
     axios
       .post(`https://lloyd-news.herokuapp.com/api/articles/${articleid}/comments`, object)
       .then(({ data }) => {
         let comment = data.comment;
-        comment = { ...comment, author: this.props.user.username };
+        comment = { ...comment, author: user.username };
         delete comment.username;
-        this.props.getComment(comment);
+        getComment(comment);
       })     
       .catch(err => {
         this.setState({
