@@ -15,7 +15,7 @@ class AddArticle extends Component {
   };
   render() {
     const { user } = this.props;
-    const { topics } = this.state;
+    const { topics, title, body, topic } = this.state;
 
     const { hasError, error } = this.state;
     if (hasError) return <Err error={error} />;
@@ -30,7 +30,7 @@ class AddArticle extends Component {
               id="title"
               type="text"
               onChange={this.handleChange}
-              value={this.state.title}
+              value={title}
               placeholder="Title"
               required
             />
@@ -39,7 +39,7 @@ class AddArticle extends Component {
               id="body"
               type="text"
               onChange={this.handleChange}
-              value={this.state.body}
+              value={body}
               placeholder="Body"
               required
             />
@@ -50,7 +50,7 @@ class AddArticle extends Component {
               <select
                 className="select"
                 id="topic"
-                value={this.state.topic}
+                value={topic}
                 onChange={this.handleChange}
                 required
               >

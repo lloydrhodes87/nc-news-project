@@ -38,13 +38,13 @@ class App extends Component {
     isLoading: true
   };
   render() {
-    const { loggedIn, isLoading } = this.state;
+    const { loggedIn, isLoading, user, users } = this.state;
     if (isLoading) return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
       <div className="App">
         <div className="loggedTopArea">
           <Logout logout={this.handleLogOut} loggedIn={loggedIn} />
-          {loggedIn && <LoggedIn user={this.state.user} />}
+          {loggedIn && <LoggedIn user={user} />}
         </div>
 
         <Header />
@@ -52,29 +52,29 @@ class App extends Component {
 
         <Login
           login={this.login}
-          user={this.state.user}
-          users={this.state.users}
+          user={user}
+          users={users}
         >
           <Router>
-            <Home path="/" users={this.state.users} />
+            <Home path="/" users={users} />
             <AllArticles
               path="/articles"
-              user={this.state.user}
-              users={this.state.users}
+              user={user}
+              users={users}
             />
 
             <Article
               path="/articles/:articleid"
-              user={this.state.user}
+              user={user}
               getArticleId={this.getArticleId}
-              users={this.state.users}
+              users={users}
             />
 
             <AllTopics path="/topics" />
             <AllArticles
               path="/topics/:slug"
-              user={this.state.user}
-              users={this.state.users}
+              user={user}
+              users={users}
             />
 
             <Users path="/users" />
