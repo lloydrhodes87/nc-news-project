@@ -5,6 +5,7 @@ import * as api from '../Utils/fetchData';
 import Loader from './Loader';
 import formatDate from '../Utils/utilFunctions';
 import Voter from './Voter';
+import Err from './Err';
 
 
 class Article extends Component {
@@ -13,10 +14,14 @@ class Article extends Component {
         toggleComments: false,
         article: [],
         isLoading: true,
+        hasError: false,
+        error: ''
         
     }
     render() {
         const { isLoading } = this.state;
+        const { hasError, error } = this.state;
+        if (hasError) return <Err error={error} />;
         const { body, title, author, created_at, votes } = this.state.article
         if (isLoading) return <Loader />;
 
@@ -80,7 +85,12 @@ class Article extends Component {
         api.deleteData(articleid)
         .then(() => {
             navigate('/articles')
-            // this.passArticleIdUp()
+        })
+        .catch(err => {
+            this.setState({
+                hasError: true,
+                error: err
+            });
         })
     }
   

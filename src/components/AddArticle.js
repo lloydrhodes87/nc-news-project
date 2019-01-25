@@ -103,7 +103,6 @@ class AddArticle extends Component {
         object
       )
       .then(({ data }) => {
-        console.log(data);
         let article = data.article;
         article = { ...article, author: article.username };
         delete article.username;
@@ -128,7 +127,13 @@ class AddArticle extends Component {
       this.setState({
         topics
       });
-    });
+    })
+    .catch(err => {
+        this.setState({
+          hasError: true,
+          error: err
+        });
+    })
   };
 }
 

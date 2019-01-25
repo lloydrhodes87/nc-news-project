@@ -4,6 +4,7 @@ import Voter from './Voter';
 import AddComment from './AddComment';
 import * as api from '../Utils/fetchData';
 import throttle from 'lodash.throttle';
+import Err from './Err';
 
 
 class Comments extends Component {
@@ -13,11 +14,15 @@ class Comments extends Component {
     page: 1,
     sort_by: 'created_at',
     hasAllComments: false,
-    limit: 10
+    limit: 10,
+    hasError: false,
+    error: ''
   };
   render() {
     const { comments } = this.state;
     const { articleid, user } = this.props;
+    const { hasError, error } = this.state;
+    if (hasError) return <Err error={error} />;
 
     return (
       <div className="commentsDiv">
@@ -78,7 +83,8 @@ class Comments extends Component {
     const fullDocumentHeight = document.body.scrollHeight;
 
     if (distanceFromTop + heightOfScreen > fullDocumentHeight - 100) {
-      if (this._isMounted) this.setState(({ page }) => ({
+      if (this._isMounted)
+        this.setState(({ page }) => ({
           page: page + 1
         }));
     }
@@ -124,7 +130,9 @@ class Comments extends Component {
       .then(res => {
         this.deleteComment(commentid);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        this.setState({ hasError: true, error: err });
+      });
   };
 }
 

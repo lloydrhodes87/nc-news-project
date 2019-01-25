@@ -150,7 +150,6 @@ class AllArticles extends Component {
     });
   };
   fetchNewAticle = article => {
-    console.log(article, 'article here');
     this.setState(
       prevState => ({
         articles: [article, ...prevState.articles]

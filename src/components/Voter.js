@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Err from './Err';
 
 class Voter extends Component {
     state = {
-        voteChange: 0
+        voteChange: 0,
+        hasError: false,
+        error: ''
     };
     render() {
         const { voteChange } = this.state;
         const { votes } = this.props
+        const { hasError, error } = this.state;
+        if (hasError) return <Err error={error} />;
         return <div>
             <p className="votes">Votes: {voteChange + votes}</p>
             <button className="voteButton" disabled={voteChange > 0} type="submit" onClick={() => this.handleUpdateVote(1)}>
@@ -37,7 +42,12 @@ class Voter extends Component {
         }
         axios.patch(reqStr, vote)
             .then(res => {
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                this.setState({
+                    hasError: true,
+                    error: err
+                });
+            })
     };
 }
 

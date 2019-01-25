@@ -23,7 +23,7 @@ class AddComment extends Component {
           <p>commenting as:{user.username} </p>
           <div className="addCommentButton">
             <label htmlFor="body"></label>
-            <textarea type="text" id="body" onChange={this.handleChange} value={body} />
+            <textarea type="text" id="body" onChange={this.handleChange} value={body} required/>
             <button type="submit">Add Comment</button>
           </div>        
         </form>
