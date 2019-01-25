@@ -3,6 +3,7 @@ import * as api from '../Utils/fetchData';
 import formatDate from '../Utils/utilFunctions';
 import { Link } from '@reach/router';
 import Err from './Err';
+import Loader from './Loader';
 
 class Trending extends Component {
   _isMounted = false;
@@ -12,12 +13,14 @@ class Trending extends Component {
     sort_by: 'comment_count',
     page: 1,
     hasError: false,
-    error: ''
+    error: '',
+    isLoading: true
   };
   render() {
-    const { articles } = this.state;
+    const { articles, isLoading } = this.state;
     const { hasError, error } = this.state;
     if (hasError) return <Err error={error} />;
+    if (isLoading) return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
       <div className="trendingContainer">
         <h3>Trending Now</h3>
@@ -71,7 +74,7 @@ class Trending extends Component {
       api
         .fetchMostRecentArticles(sort_by)
         .then(articles => {
-          if (this._isMounted) this.setState({ articles });
+          if (this._isMounted) this.setState({ articles, isLoading: false });
         })
         .catch(err => {
           this.setState({

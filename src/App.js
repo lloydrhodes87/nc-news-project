@@ -24,6 +24,7 @@ import Login from './components/Login';
 import * as api from './Utils/fetchData';
 import Logout from './components/Logout';
 import LoggedIn from './components/LoggedIn';
+import Loader from './components/Loader';
 
 
 
@@ -33,11 +34,14 @@ class App extends Component {
     article_id: '',
     user: '',
     loggedIn: false,
-    users: []
+    users: [],
+    isLoading: true
   };
   render() {
-    const { loggedIn } = this.state;
-    return <div className="App">
+    const { loggedIn, isLoading } = this.state;
+    if (isLoading) return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
+    return (
+      <div className="App">
         <div className="loggedTopArea">
           <Logout logout={this.handleLogOut} loggedIn={loggedIn} />
           {loggedIn && <LoggedIn user={this.state.user} />}
@@ -45,68 +49,80 @@ class App extends Component {
 
         <Header />
         <Navbar />
-        
-        <Login login={this.login} user={this.state.user} users={this.state.users}>
+
+        <Login
+          login={this.login}
+          user={this.state.user}
+          users={this.state.users}
+        >
           <Router>
             <Home path="/" users={this.state.users} />
-            <AllArticles path="/articles" user={this.state.user} users={this.state.users} />
+            <AllArticles
+              path="/articles"
+              user={this.state.user}
+              users={this.state.users}
+            />
 
-            <Article path="/articles/:articleid" user={this.state.user} getArticleId={this.getArticleId} users={this.state.users} />
+            <Article
+              path="/articles/:articleid"
+              user={this.state.user}
+              getArticleId={this.getArticleId}
+              users={this.state.users}
+            />
 
             <AllTopics path="/topics" />
-            <AllArticles path="/topics/:slug" user={this.state.user} users={this.state.users} />
+            <AllArticles
+              path="/topics/:slug"
+              user={this.state.user}
+              users={this.state.users}
+            />
 
             <Users path="/users" />
           </Router>
         </Login>
-      </div>;
+      </div>
+    );
   }
-  
+
   componentDidMount = () => {
     this.fetchUsers();
     const stored = localStorage.getItem('user');
     if (stored) {
-    const {user, loggedIn} = JSON.parse(stored);
-    this.setState({
-      user,
-      loggedIn
-    })
-  }
-    
-  }
-  
-  login = user => {
-    api.fetchUser(user)
-    .then(user => {
-      this.setState((prevState) => ({
+      const { user, loggedIn } = JSON.parse(stored);
+      this.setState({
         user,
-        loggedIn: true
-      }), () => {
-        const state = this.state
-          localStorage.setItem('user', JSON.stringify(state))
-      })
-        
-      
+        loggedIn
+      });
     }
-      
-    )}
+  };
+
+  login = user => {
+    api.fetchUser(user).then(user => {
+      this.setState(
+        prevState => ({
+          user,
+          loggedIn: true
+        }),
+        () => {
+          const state = this.state;
+          localStorage.setItem('user', JSON.stringify(state));
+        }
+      );
+    });
+  };
   handleLogOut = () => {
     localStorage.clear();
     this.setState({
       user: '',
       loggedIn: false
-    })
+    });
   };
 
   fetchUsers = () => {
     api.fetchAllUsers().then(users => {
-      this.setState(() => ({
-        users: users
-      }));
+      this.setState(() => ({ users: users, isLoading: false }));
     });
   };
-  
-
 }
 
 export default App;

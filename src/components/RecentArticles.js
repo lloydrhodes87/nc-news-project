@@ -3,6 +3,7 @@ import * as api from '../Utils/fetchData';
 import formatDate from '../Utils/utilFunctions';
 import { Link } from '@reach/router';
 import Err from './Err';
+import Loader from './Loader';
 
 class RecentArticles extends Component {
   _isMounted = false;
@@ -12,12 +13,15 @@ class RecentArticles extends Component {
     sort_by: 'created_at',
     page: 1,
     hasError: false,
-    error: ''
+    error: '',
+    isLoading: true
   };
   render() {
-    const { articles } = this.state;
+    const { articles, isLoading } = this.state;
     const { hasError, error } = this.state;
     if (hasError) return <Err error={error} />;
+    if (isLoading)
+      return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
       <div className="recentArticlesContainer">
         <h3>Recent Articles</h3>
@@ -69,7 +73,7 @@ class RecentArticles extends Component {
     api
       .fetchMostRecentArticles()
       .then(articles => {
-        if (this._isMounted) this.setState({ articles });
+        if (this._isMounted) this.setState({ articles, isLoading: false });
       })
       .catch(err => {
         this.setState({
