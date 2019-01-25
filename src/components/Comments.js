@@ -67,8 +67,9 @@ class Comments extends Component {
   };
 
   componentDidUpdate = (prevProps, prevState) => {
-    const pageUpdate = prevState.page !== this.state.page;
-    if (pageUpdate && !this.state.hasAllComments) {
+    const { page, hasAllComments } = this.state;
+    const pageUpdate = prevState.page !== page;
+    if (pageUpdate && !hasAllComments) {
       this.handleFetchComments();
     }
   };

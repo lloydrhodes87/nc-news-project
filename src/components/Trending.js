@@ -17,8 +17,9 @@ class Trending extends Component {
     isLoading: true
   };
   render() {
-    const { articles, isLoading } = this.state;
-    const { hasError, error } = this.state;
+    const { articles, isLoading, hasError, error } = this.state;
+    const { users } = this.props;
+
     if (hasError) return <Err error={error} />;
     if (isLoading) return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
@@ -29,7 +30,7 @@ class Trending extends Component {
           <div className="homeContainer">
             {articles.map(
               ({ article_id, title, topic, author, created_at }) => {
-                const userObject = this.props.users.filter(
+                const userObject = users.filter(
                   user => user.username === author
                 );
                 return (

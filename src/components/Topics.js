@@ -48,13 +48,15 @@ class Topics extends Component {
     }
 
     addTopicCall = async () => {
+        const { slug, description } = this.state;
+        const { getTopic } = this.props;
         const topic = {
-            slug: this.state.slug,
-            description: this.state.description
+            slug,
+            description: description
         }
         await axios.post(`https://lloyd-news.herokuapp.com/api/topics`, topic)
         .then(({data}) => {
-            this.props.getTopic(data.topic)
+            getTopic(data.topic)
         })
         .catch(err => {
             console.log('should be a 422')
