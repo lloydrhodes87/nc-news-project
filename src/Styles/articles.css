@@ -84,6 +84,7 @@
     .topAddArticleForm {
         width: 80%;
     }
+   
 }
 
 @media (max-width: 768px) {
@@ -93,6 +94,7 @@
     .topAddArticleForm {
         width: 80%;
     }
+    
 }
 
 
@@ -148,7 +150,7 @@
 
 .articleTitle {
     color: rgb(255, 255, 255);
-    font-size: 5rem;
+    font-size: 300%;
     font-weight: 300;
     font-family: Lato, sans-serif;
     padding: 1rem 2rem;
