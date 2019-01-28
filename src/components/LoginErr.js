@@ -9,7 +9,7 @@ class LoginErr extends Component {
         <h1>Whoops!</h1>
         <p>{err.data.msg}</p>
         <p>{err.status}</p>
-        <p>{this.props.message}</p>
+        <p>Please enter a valid username</p>
         <button onClick={this.handleResetState}>
           <Link className="link" to="/">
             Go Home
