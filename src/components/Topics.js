@@ -68,7 +68,6 @@ class Topics extends Component {
         getTopic(data.topic);
       })
       .catch(err => {
-        console.log('should be a 422');
         this.setState({
           hasError: true,
           error: err

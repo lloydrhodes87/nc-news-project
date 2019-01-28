@@ -3,7 +3,6 @@ import { Link } from '@reach/router';
 
 const Err = props => {
   const err = props.error.response;
-  console.log(err);
   return (
     <div className="errorBox">
       <h1>Whoops!</h1>

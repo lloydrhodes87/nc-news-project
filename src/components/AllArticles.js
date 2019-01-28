@@ -144,7 +144,6 @@ class AllArticles extends Component {
           });
       })
       .catch(err => {
-        console.log('here');
         this.setState({
           hasAllArticles: true,
           isLoading: false,
