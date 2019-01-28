@@ -105,7 +105,6 @@ class AddArticle extends Component {
       .then(({ data }) => {
         let article = data.article;
         article = { ...article, author: article.username };
-        delete article.username;
         fetchNewArticle(article);
       })
       .then(() => {
