@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Router } from '@reach/router';
 import Users from './Users';
 import NotLogged from './NotLogged';
+import NoPage from './NoPage';
 
 class Login extends Component {
   state = {
@@ -33,6 +34,7 @@ class Login extends Component {
           <NotLogged path="/articles/*" />
           <NotLogged path="/topics/*" />
           <Users path="/users" />
+          <NoPage default />
         </Router>
       </div>
     );

@@ -25,6 +25,7 @@ import * as api from './Utils/fetchData';
 import Logout from './components/Logout';
 import LoggedIn from './components/LoggedIn';
 import Loader from './components/Loader';
+import NoPage from './components/NoPage';
 
 class App extends Component {
   state = {
@@ -64,6 +65,7 @@ class App extends Component {
             <AllArticles path="/topics/:slug" user={user} users={users} />
 
             <Users path="/users" />
+            <NoPage default />
           </Router>
         </Login>
       </div>

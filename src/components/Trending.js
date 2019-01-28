@@ -30,12 +30,21 @@ class Trending extends Component {
         <ul>
           <div className="homeContainer">
             {articles.map(
-              ({ article_id, title, topic, author, created_at }) => {
+              ({
+                article_id,
+                title,
+                topic,
+                author,
+                created_at,
+                comment_count,
+                votes
+              }) => {
                 const userObject = users.filter(
                   user => user.username === author
                 );
                 return (
                   <li key={article_id}>
+                    <p className="homePageVotes">Votes: {votes}</p>
                     <p className="articleTitle">{title}</p>
                     <p className="articleP">Topic: {topic}</p>
                     <img
@@ -47,13 +56,15 @@ class Trending extends Component {
                     <p className="articlePDate">
                       Date: {formatDate(created_at)}
                     </p>
-
-                    <Link
-                      className="buttonViewArticles"
-                      to={`/articles/${article_id}`}
-                    >
-                      View Article
-                    </Link>
+                    <p className="comments">comments: {comment_count}</p>
+                    <button>
+                      <Link
+                        className="buttonViewArticles"
+                        to={`/articles/${article_id}`}
+                      >
+                        View Article
+                      </Link>
+                    </button>
                   </li>
                 );
               }

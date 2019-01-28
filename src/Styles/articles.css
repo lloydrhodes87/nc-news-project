@@ -26,22 +26,12 @@
 
 .buttonViewArticles {
   color: white;
-  font-size: 1.5rem;
-  padding: 1rem 2rem;
-  outline: none;
-  cursor: pointer;
-  color: white;
-  background-color: #65c8ff;
-  border-radius: 10px;
-  margin-bottom: 1rem;
   transition: 1s;
-  border: 2px solid white;
 }
 
-.buttonViewArticles > a {
-  color: white;
+.comments {
+  margin-bottom: 2rem;
 }
-
 #postingAs {
   width: 8rem;
   height: auto;
@@ -163,5 +153,5 @@
 
 .articlePDate {
   font-size: 1.3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }

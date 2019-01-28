@@ -34,40 +34,51 @@ class AllArticles extends Component {
             <div className="categories" id="sortbySelect">
               <select className="select" onChange={this.handleChange}>
                 <option />
-                <option value="created_at">date first</option>
-                <option value="created_at&sort_ascending=true">
-                  date last
-                </option>
-                <option value="votes&sort_ascending=true">votes</option>
+                <option value="created_at">most recent</option>
+                <option value="created_at&sort_ascending=true">oldest</option>
+                <option value="votes&sort_ascending=false">votes</option>
                 <option value="comment_count">most comments</option>
               </select>
             </div>
           </form>
 
-          {articles.map(({ article_id, title, topic, author, created_at }) => {
-            const userObject = users.filter(user => user.username === author);
-            return (
-              <li key={article_id}>
-                <h3 className="articleTitle">{title}</h3>
+          {articles.map(
+            ({
+              article_id,
+              title,
+              topic,
+              author,
+              created_at,
+              comment_count,
+              votes
+            }) => {
+              const userObject = users.filter(user => user.username === author);
+              return (
+                <li key={article_id}>
+                  <p>Votes: {votes}</p>
+                  <h3 className="articleTitle">{title}</h3>
 
-                <p className="articlePTopic">Topic: {topic}</p>
-                <img
-                  className="avatarInArticles"
-                  src={userObject[0].avatar_url}
-                  alt="avatar"
-                />
-                <p className="articleP">Author: {author}</p>
-                <p className="articlePDate">Date: {formatDate(created_at)}</p>
-
-                <Link
-                  className="buttonViewArticles"
-                  to={`/articles/${article_id}`}
-                >
-                  View Article
-                </Link>
-              </li>
-            );
-          })}
+                  <p className="articlePTopic">Topic: {topic}</p>
+                  <img
+                    className="avatarInArticles"
+                    src={userObject[0].avatar_url}
+                    alt="avatar"
+                  />
+                  <p className="articleP">Author: {author}</p>
+                  <p className="articlePDate">Date: {formatDate(created_at)}</p>
+                  <p className="comments">{comment_count} comments</p>
+                  <button>
+                    <Link
+                      className="buttonViewArticles"
+                      to={`/articles/${article_id}`}
+                    >
+                      View Article
+                    </Link>
+                  </button>
+                </li>
+              );
+            }
+          )}
         </div>
       </div>
     );
