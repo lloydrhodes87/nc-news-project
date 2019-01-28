@@ -72,13 +72,18 @@ class Article extends Component {
   };
   handleFetchArticle = () => {
     const { articleid } = this.props;
-    api.fetchArticle(articleid).then(article => {
-      const singleArticle = article.article;
-      this.setState({
-        article: singleArticle,
-        isLoading: false
+    api
+      .fetchArticle(articleid)
+      .then(article => {
+        const singleArticle = article.article;
+        this.setState({
+          article: singleArticle,
+          isLoading: false
+        });
+      })
+      .catch(err => {
+        this.setState({ hasError: true, error: err });
       });
-    });
   };
 
   handleDeleteArticle = () => {

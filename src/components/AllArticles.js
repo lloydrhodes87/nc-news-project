@@ -5,6 +5,7 @@ import Loader from './Loader';
 import formatDate from '../Utils/utilFunctions';
 import AddArticle from './AddArticle';
 import throttle from 'lodash.throttle';
+import Err from './Err';
 
 class AllArticles extends Component {
   _isMounted = false;
@@ -15,13 +16,16 @@ class AllArticles extends Component {
     search: '',
     page: 1,
     hasAllArticles: false,
-    topic: ''
+    topic: '',
+    hasError: false,
+    error: ''
   };
   render() {
     const { isLoading } = this.state;
     let { articles } = this.state;
     const { user, users } = this.props;
-
+    const { hasError, error } = this.state;
+    if (hasError) return <Err resetState={this.resetState} error={error} />;
     if (isLoading)
       return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
@@ -140,9 +144,12 @@ class AllArticles extends Component {
           });
       })
       .catch(err => {
+        console.log('here');
         this.setState({
           hasAllArticles: true,
-          isLoading: false
+          isLoading: false,
+          hasError: true,
+          error: err
         });
       });
   };

@@ -26,6 +26,7 @@ import Logout from './components/Logout';
 import LoggedIn from './components/LoggedIn';
 import Loader from './components/Loader';
 import NoPage from './components/NoPage';
+import LoginErr from './components/LoginErr';
 
 class App extends Component {
   state = {
@@ -33,10 +34,15 @@ class App extends Component {
     user: '',
     loggedIn: false,
     users: [],
-    isLoading: true
+    isLoading: true,
+    hasError: false,
+    error: ''
   };
   render() {
     const { loggedIn, isLoading, user, users } = this.state;
+    const { hasError, error } = this.state;
+    if (hasError)
+      return <LoginErr resetState={this.resetState} error={error} />;
     if (isLoading)
       return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
@@ -85,18 +91,26 @@ class App extends Component {
   };
 
   login = user => {
-    api.fetchUser(user).then(user => {
-      this.setState(
-        prevState => ({
-          user,
-          loggedIn: true
-        }),
-        () => {
-          const state = this.state;
-          sessionStorage.setItem('user', JSON.stringify(state));
-        }
-      );
-    });
+    api
+      .fetchUser(user)
+      .then(user => {
+        this.setState(
+          prevState => ({
+            user,
+            loggedIn: true
+          }),
+          () => {
+            const state = this.state;
+            sessionStorage.setItem('user', JSON.stringify(state));
+          }
+        );
+      })
+      .catch(err => {
+        this.setState({
+          hasError: true,
+          error: err
+        });
+      });
   };
   handleLogOut = () => {
     sessionStorage.clear();
@@ -109,6 +123,12 @@ class App extends Component {
   fetchUsers = () => {
     api.fetchAllUsers().then(users => {
       this.setState(() => ({ users: users, isLoading: false }));
+    });
+  };
+  resetState = () => {
+    this.setState({
+      hasError: false,
+      err: ''
     });
   };
 }
