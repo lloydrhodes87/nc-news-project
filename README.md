@@ -56,7 +56,8 @@ A logged in user can then add and delete their own articles and comments and vot
 
 ## `Built With`
 
-React JS
+React JS @16.7.0
+Reach Router @1.2.1
 
 ## `Authors`
 

@@ -25,7 +25,8 @@ class AllArticles extends Component {
     let { articles } = this.state;
     const { user, users } = this.props;
     const { hasError, error } = this.state;
-    if (hasError) return <Err resetState={this.resetState} error={error} />;
+    if (hasError && !this.state.hasAllArticles)
+      return <Err resetState={this.resetState} error={error} />;
     if (isLoading)
       return <Loader type="Bars" color="#somecolor" height={80} width={80} />;
     return (
@@ -133,17 +134,21 @@ class AllArticles extends Component {
     api
       .fetchArticles(slug, value, page)
       .then(newArticles => {
+        console.log(newArticles, '>>>>>');
         this.setState(({ articles }) => ({
           articles: page === 1 ? newArticles : [...articles, ...newArticles],
-          isLoading: false
+          isLoading: false,
+          hasError: false
         }));
         if (!newArticles.length)
           this.setState({
             hasAllArticles: true,
-            isLoading: false
+            isLoading: false,
+            hasError: false
           });
       })
       .catch(err => {
+        console.log(err);
         this.setState({
           hasAllArticles: true,
           isLoading: false,
